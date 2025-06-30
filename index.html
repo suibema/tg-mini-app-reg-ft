@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Email Input</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h2>Регистрация</h2>
+  <form id="reg-form">
+    <label>Фамилия</label>
+    <input type="text" name="surname" id="surname" required/>
+
+    <label>Имя</label>
+    <input type="text" name="name" id="name" required/>
+
+    <label>E-mail</label>
+    <input type="email" name="email" id="email" required placeholder="your@email.com" />
+    
+    <label>Телефон</label>
+    <input type="text" name="phone" id="phone" required/>
+    
+    <label>Город проживания</label>
+    <select name="city" id="city">
+      <option value="">- выбрать -</option>
+      <option value="Москва или МО">Москва или МО</option>
+      <option value="Санкт-Петербург">Санкт-Петербург</option>
+      <option value="Алматы">Алматы</option>
+      <option value="Другой">Другой</option>
+    </select>
+    
+    <input type="text" name="city-other" id="city-other" placeholder="Напиши свой город" style="display: none;">
+    
+    <label>Гражданство</label>
+    <select name="citizen" id="citizen">
+      <option value="">- выбрать -</option>
+      <option value="РФ">РФ</option>
+      <option value="Беларусь">Беларусь</option>
+      <option value="Казахстан">Казахстан</option>
+      <option value="Армения">Армения</option>
+      <option value="Киргизия">Киргизия</option>
+      <option value="Другое">Другое</option>
+    </select>
+    
+    <input type="text" name="citizen-other" id="citizen-other" placeholder="Напиши свое гражданство" style="display: none;">
+
+    <label>ВУЗ</label>
+    <input type="text" name="vuz" id="vuz" required/>
+    
+    <label>Специальность</label>
+    <input type="text" name="specialty" id="specialty" required/>
+    
+    <label>Степень обучения</label>
+    <select name="study">
+      <option value="">- выбрать -</option>
+      <option value="Бакалавриат">Бакалавриат</option>
+      <option value="Специалитет">Специалитет</option>
+      <option value="Магистратура">Магистратура</option>
+      <option value="Аспирантура">Аспирантура</option>
+      <option value="Среднее специальное">Среднее специальное</option>
+      <option value="Не получаю сейчас высшее или среднее специальное образование">Не получаю сейчас высшее или среднее специальное образование</option>
+    </select>
+    
+    <label>Год окончания ВУЗа</label>
+    <select name="finished">
+      <option value="">- выбрать -</option>
+      <option value="2022 и ранее">2022 и ранее</option>
+      <option value="2023">2023</option>
+      <option value="2024">2024</option>
+      <option value="2025">2025</option>
+      <option value="2026">2026</option>
+      <option value="2027">2027</option>
+      <option value="2028">2028</option>
+      <option value="2029 и позднее">2029 и позднее</option>
+    </select>
+    
+    <label>График (часы) работы</label>
+    <select name="hours">
+      <option value="">- выбрать -</option>
+      <option value="Менее 20 часов">Менее 20 часов</option>
+      <option value="20 часов и более">20 часов и более</option>
+      <option value="30 часов и более">30 часов и более</option>
+      <option value="40 часов и более">40 часов и более</option>
+    </select>
+   
+    <label>Направление первого приоритета</label>
+    <select name="first">
+      <option value="">- выбрать -</option>
+      <option value="PROJECTS">PROJECTS</option>
+      <option value="IT SMM">IT SMM</option>
+      <option value="ACCOUNT MANAGER">ACCOUNT MANAGER</option>
+      <option value="CONSULTING">CONSULTING</option>
+    </select>
+    
+    <label>Направление первого приоритета</label>
+    <select name="second">
+      <option value="">- выбрать -</option>
+      <option value="PROJECTS">PROJECTS</option>
+      <option value="IT SMM">IT SMM</option>
+      <option value="ACCOUNT MANAGER">ACCOUNT MANAGER</option>
+      <option value="CONSULTING">CONSULTING</option>
+    </select>
+
+    <button type="submit">ОТПРАВИТЬ</button>
+  </form>
+  <p id="email-error" style="color: red;"></p>
+
+  <script src="script.js"></script>
+</body>
+</html>
