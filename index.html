@@ -22,7 +22,7 @@
     <input type="text" name="phone" id="phone" required/>
     
     <label>Город проживания</label>
-    <select name="city" id="city">
+    <select name="city" id="city" required >
       <option value="">- выбрать -</option>
       <option value="Москва или МО">Москва или МО</option>
       <option value="Санкт-Петербург">Санкт-Петербург</option>
@@ -33,7 +33,7 @@
     <input type="text" name="city-other" id="city-other" placeholder="Напиши свой город" style="display: none;">
     
     <label>Гражданство</label>
-    <select name="citizen" id="citizen">
+    <select name="citizen" id="citizen" required>
       <option value="">- выбрать -</option>
       <option value="РФ">РФ</option>
       <option value="Беларусь">Беларусь</option>
@@ -52,7 +52,7 @@
     <input type="text" name="specialty" id="specialty" required/>
     
     <label>Степень обучения</label>
-    <select name="study">
+    <select name="study" required>
       <option value="">- выбрать -</option>
       <option value="Бакалавриат">Бакалавриат</option>
       <option value="Специалитет">Специалитет</option>
@@ -63,7 +63,7 @@
     </select>
     
     <label>Год окончания ВУЗа</label>
-    <select name="finished">
+    <select name="finished" required>
       <option value="">- выбрать -</option>
       <option value="2022 и ранее">2022 и ранее</option>
       <option value="2023">2023</option>
@@ -76,7 +76,7 @@
     </select>
     
     <label>График (часы) работы</label>
-    <select name="hours">
+    <select name="hours" required>
       <option value="">- выбрать -</option>
       <option value="Менее 20 часов">Менее 20 часов</option>
       <option value="20 часов и более">20 часов и более</option>
@@ -85,7 +85,7 @@
     </select>
    
     <label>Направление первого приоритета</label>
-    <select name="first">
+    <select name="first" required>
       <option value="">- выбрать -</option>
       <option value="Projects">Projects</option>
       <option value="Research Manager">Research Manager</option>
@@ -98,7 +98,7 @@
     </select>
     
     <label>Направление второго приоритета</label>
-    <select name="second">
+    <select name="second" required>
       <option value="">- выбрать -</option>
       <option value="Projects">Projects</option>
       <option value="Research Manager">Research Manager</option>
