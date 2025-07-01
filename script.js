@@ -1,3 +1,16 @@
+  const tg = window.Telegram?.WebApp;
+  if (tg) {
+    tg.ready();
+    const user = tg.initDataUnsafe?.user;
+    if (user && user.id) {
+      userIdEl.textContent = `Telegram User ID: ${user.id}`;
+      // Optionally store user ID for submission
+      window.tgUserId = user.id; // Global for later use
+    } else {
+      userIdEl.textContent = 'User ID not available';
+    }
+  }
+
 document.addEventListener('DOMContentLoaded', () => {
   const select = document.getElementById('city');
   const otherInput = document.getElementById('city-other');
@@ -144,7 +157,8 @@ form.addEventListener('submit', async function (e) {
         "Направление 2 приоритета": data.second,
         "Гражданство": data.citizen,
         "Город": data.city,
-        "Скрининг итог": approved
+        "Скрининг итог": approved,
+        "tg-id": window.tgUserId
       })
     }
     )}
