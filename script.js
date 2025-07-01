@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
 const form = document.getElementById('reg-form');
 form.addEventListener('submit', async function (e) {
   const formData = new FormData(form);
+  const errorEl = document.getElementById('reg-error');
   const data = {
     surname: formData.get('surname'),
     name: formData.get('name'),
@@ -61,6 +62,8 @@ form.addEventListener('submit', async function (e) {
     
     if (data_email.count > 0) {
       repeated = 'да';
+      errorEl.textContent = 'You have already submitted the reg.';
+      return;
     }
   }
   catch (err) {
@@ -81,7 +84,9 @@ form.addEventListener('submit', async function (e) {
   
     if (data_phone.count > 0) {
       repeated = 'да';
-    };
+      errorEl.textContent = 'You have already submitted the reg.';
+      return;
+    }
   }
   catch (err) {
     console.error(err);
@@ -90,9 +95,27 @@ form.addEventListener('submit', async function (e) {
 
   let approved = 'ок';
   // Multi-cascade conditions
-  if ((data.finished === '22' || data.finished === '23' || data.finished === '28' || data.finished === '29') || 
+  if ( 
       (data.hours === '10') || 
-      (data.first === 'a' && (data.city === 'alm' || data.city === 'other'))) {
+      (data.study === "Среднее общее (школа)") ||
+      (data.first === 'SMM' && 
+        ((data.finished === "2022 и ранее" || data.finished === "2023" || data.finished === "2029 и позднее") ||
+        (data.study === "Среднее специальное" && data.finished != '2026') ||
+        (data.study === 'Аспирантура'))) ||
+      (data.first === 'University Partnership' && 
+        ((data.finished === "2029 и позднее") ||
+        (data.study === "Среднее специальное" && data.finished != '2026'))) ||
+      (data.first === 'Corporate Marketing' && 
+        ((data.finished === "2027" || data.finished === "2028" || data.finished === "2029 и позднее") ||
+        (data.study === "Среднее специальное") ||
+        (data.city != 'Москва или МО'))) ||
+      (data.first === 'Video Editor' && 
+        ((data.finished === "2029 и позднее") ||
+        (data.study === "Среднее специальное" && data.finished != '2026'))) ||
+      (data.first === 'Projects' && 
+        ((data.finished === "2029 и позднее") ||
+        (data.study === "Среднее специальное" && data.finished != '2026')))
+    ) {
     approved = 'отказ';
   };
 
@@ -126,7 +149,9 @@ form.addEventListener('submit', async function (e) {
     console.error(err);
     errorEl.textContent = 'Server error. Please try again.';
     }
+  
   window.location.href = 'bye.html'
+
   console.log('Data:', data, 'Approved:', approved, 'repeated:', repeated);
   // Later: Send to NocoDB with { email, approved }  
 });
