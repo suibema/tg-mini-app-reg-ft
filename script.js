@@ -1,15 +1,15 @@
-  const tg = window.Telegram?.WebApp;
-  if (tg) {
-    tg.ready();
-    const user = tg.initDataUnsafe?.user;
-    if (user && user.id) {
-      userIdEl.textContent = `Telegram User ID: ${user.id}`;
-      // Optionally store user ID for submission
-      window.tgUserId = user.id; // Global for later use
-    } else {
-      userIdEl.textContent = 'User ID not available';
-    }
+const tg = window.Telegram?.WebApp;
+if (tg) {
+  tg.ready();
+  const user = tg.initDataUnsafe?.user;
+  if (user && user.id) {
+    userIdEl.textContent = `Telegram User ID: ${user.id}`;
+    // Optionally store user ID for submission
+    window.tgUserId = user.id; // Global for later use
+  } else {
+    userIdEl.textContent = 'User ID not available';
   }
+}
 
 document.addEventListener('DOMContentLoaded', () => {
   const select = document.getElementById('city');
