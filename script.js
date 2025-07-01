@@ -38,7 +38,7 @@ form.addEventListener('submit', async function (e) {
     city: formData.get('city'),
     city_other: formData.get('city-other'),
     citizen: formData.get('citizen'),
-    citizen_other: formData.get('citizen_other'),
+    citizen_other: formData.get('citizen-other'),
     vuz: formData.get('vuz'),
     specialty: formData.get('specialty'),
     study: formData.get('study'),
@@ -118,7 +118,10 @@ form.addEventListener('submit', async function (e) {
     ) {
     approved = 'отказ';
   };
-
+  
+  if (data.city === 'Другой') {data.city = data.city_other};
+  if (data.citizen === 'Другое') {data.citizen = data.citizen_other};
+  
   try {
     const res = await fetch('https://ndb.fut.ru/api/v2/tables/maiff22q0tefj6t/records', {
       method: 'POST',
