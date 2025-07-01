@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const otherInput = document.getElementById('city-other');
 
   select.addEventListener('change', () => {
-    if (select.value === 'other') {
+    if (select.value === 'Другой') {
       otherInput.style.display = 'block';
     } else {
       otherInput.style.display = 'none';
@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const otherInput = document.getElementById('citizen-other');
 
   select.addEventListener('change', () => {
-    if (select.value === 'other') {
+    if (select.value === 'Другое') {
       otherInput.style.display = 'block';
     } else {
       otherInput.style.display = 'none';
