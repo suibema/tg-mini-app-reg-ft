@@ -1,15 +1,20 @@
-const tg = window.Telegram?.WebApp;
-if (tg) {
-  tg.ready();
-  const user = tg.initDataUnsafe?.user;
-  if (user && user.id) {
-    userIdEl.textContent = `Telegram User ID: ${user.id}`;
-    // Optionally store user ID for submission
-    window.tgUserId = user.id; // Global for later use
-  } else {
-    userIdEl.textContent = 'User ID not available';
+function getTelegramUserId() {
+  if (window.Telegram && Telegram.WebApp && Telegram.WebApp.initDataUnsafe) {
+    const user = Telegram.WebApp.initDataUnsafe.user;
+    if (user && user.id) {
+      return user.id; // tg-id
+    }
   }
-}
+  return null;
+};
+
+document.addEventListener("DOMContentLoaded", () => {
+  Telegram.WebApp.ready(); // инициализация
+
+  const tgUserId = getTelegramUserId();
+  console.log("Telegram ID:", tgUserId);
+});
+
 
 document.addEventListener('DOMContentLoaded', () => {
   const select = document.getElementById('city');
@@ -158,7 +163,7 @@ form.addEventListener('submit', async function (e) {
         "Гражданство": data.citizen,
         "Город": data.city,
         "Скрининг итог": approved,
-        "tg-id": window.tgUserId
+        "tg-id": tgUserId
       })
     }
     )}
