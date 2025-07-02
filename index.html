@@ -8,6 +8,7 @@
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
+  <img src="FT20LOGO@4x.png" width="100"><br>
   <h2>Регистрация</h2>
   <form id="reg-form">
     <label>Фамилия</label>
@@ -97,6 +98,42 @@
       <option value="University Partnership">University Partnership</option>
       <option value="Account manager">Account manager</option>
     </select>
+  
+    <ul class="question-list" name='first_video' id='first_video' style="display: none;"> 
+      <label>С какими из этих инструментов ты умеешь работать? (Можно выбрать несколько вариантов)</label>
+      <li class="question-list__item">
+        <input type="checkbox" name="first_video" value="123" id="first_video-a">
+        <label for="first_video-a">Adobe Premiere Pro</label>
+      </li>
+      <li class="question-list__item">
+        <input type="checkbox" name="first_video" value="b" id="first_video-b">
+        <label for="first_video-b">Figma</label>
+      </li>
+      <li class="question-list__item">
+        <input type="checkbox" name="first_video" value="c" id="first_video-c">
+        <label for="first_video-c">Final Cut Pro</label>
+      </li>
+      <li class="question-list__item">
+        <input type="checkbox" name="first_video" value="d" id="first_video-d">
+        <label for="first_video-d">DaVinci Resolve</label>
+      </li>
+      <li class="question-list__item">
+        <input type="checkbox" name="first_video" value="e" id="first_video-e">
+        <label for="first_video-e">CapCut</label>
+      </li>
+      <li class="question-list__item">
+        <input type="checkbox" name="first_video" value="f" id="first_video-e">
+        <label for="first_video-e">Sony Vegas Pro</label>
+      </li>
+      <li class="question-list__item">
+        <input type="checkbox" name="first_video" value="g" id="first_video-e">
+        <label for="first_video-e"> Movavi Video Editor</label>
+      </li>
+      <li class="question-list__item">
+        <input type="checkbox" name="first_video" value="j" id="first_video-f">
+        <label for="first_video-f">Filmora</label>
+      </li>
+    </ul>  
     
     <label>Направление второго приоритета</label>
     <select name="second" required>
@@ -111,6 +148,42 @@
       <option value="Account manager">Account manager</option>
     </select>
 
+    <ul class="question-list" name='second_video' id="second_video" style="display: none;"> 
+      <label>С какими из этих инструментов ты умеешь работать? (Можно выбрать несколько вариантов)</label>
+      <li class="question-list__item">
+        <input type="checkbox" name="second_video" value="a" id="second_video-a">
+        <label for="second_video-a">Adobe Premiere Pro</label>
+      </li>
+      <li class="question-list__item">
+        <input type="checkbox" name="second_video" value="b" id="second_video-b">
+        <label for="second_video-b">Figma</label>
+      </li>
+      <li class="question-list__item">
+        <input type="checkbox" name="second_video" value="c" id="second_video-c">
+        <label for="second_video-c">Final Cut Pro</label>
+      </li>
+      <li class="question-list__item">
+        <input type="checkbox" name="second_video" value="d" id="second_video-d">
+        <label for="second_video-d">DaVinci Resolve</label>
+      </li>
+      <li class="question-list__item">
+        <input type="checkbox" name="second_video" value="e" id="second_video-e">
+        <label for="second_video-e">CapCut</label>
+      </li>
+      <li class="question-list__item">
+        <input type="checkbox" name="second_video" value="f" id="second_video-f">
+        <label for="second_video-f">Sony Vegas Pro</label>
+      </li>
+      <li class="question-list__item">
+        <input type="checkbox" name="second_video" value="g" id="second_video-g">
+        <label for="second_video-g"> Movavi Video Editor</label>
+      </li>
+      <li class="question-list__item">
+        <input type="checkbox" name="second_video" value="j" id="second_video-j">
+        <label for="second_video-j">Filmora</label>
+      </li>
+    </ul>
+    
     <button type="submit">ОТПРАВИТЬ</button>
   </form>
   <p id="reg-error" style="color: red;"></p>
