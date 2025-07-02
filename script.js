@@ -114,7 +114,7 @@ form.addEventListener('submit', async function (e) {
   let approved = 'ок';
   // Multi-cascade conditions
   if ( 
-      (data.hours === '10') || 
+      (data.hours === 'Менее 20 часов') || 
       (data.study === "Среднее общее (школа)") ||
       (data.first === 'SMM' && 
         ((data.finished === "2022 и ранее" || data.finished === "2023" || data.finished === "2029 и позднее") ||
