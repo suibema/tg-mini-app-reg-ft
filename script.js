@@ -7,14 +7,8 @@ function getTelegramUserId() {
   }
   return null;
 };
-
-document.addEventListener("DOMContentLoaded", () => {
-  Telegram.WebApp.ready(); // инициализация
-
   const tgUserId = getTelegramUserId();
   console.log("Telegram ID:", tgUserId);
-});
-
 
 document.addEventListener('DOMContentLoaded', () => {
   const select = document.getElementById('city');
