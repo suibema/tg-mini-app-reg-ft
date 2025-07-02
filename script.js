@@ -1,3 +1,5 @@
+const form = document.getElementById('reg-form');
+
 function getTelegramUserId() {
   if (window.Telegram && Telegram.WebApp && Telegram.WebApp.initDataUnsafe) {
     const user = Telegram.WebApp.initDataUnsafe.user;
@@ -44,7 +46,54 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-const form = document.getElementById('reg-form');
+document.addEventListener('DOMContentLoaded', () => {
+  const select = document.getElementById('first');
+  const otherInput = document.getElementById('first_video');
+
+  select.addEventListener('change', () => {
+    if (select.value === 'Video Editor') {
+      otherInput.style.display = 'block';
+    } else {
+      otherInput.style.display = 'none';
+      otherInput.value = ''; // Clear the input when hiding
+    }
+  });
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  const select = document.getElementById('second');
+  const otherInput = document.getElementById('second_video');
+
+  select.addEventListener('change', () => {
+    if (select.value === 'Video Editor') {
+      otherInput.style.display = 'block';
+    } else {
+      otherInput.style.display = 'none';
+      otherInput.value = ''; // Clear the input when hiding
+    }
+  });
+});
+
+const questionNames = ['surname', 'name', 'email', 'phone', 'city', 'city-other', 
+  'citizen', 'citizen-other', 'vuz', 'specialty', 'study', 'finished', 
+  'hours', 'first', 'second'];
+function saveForm() {
+  const formData = new FormData(form);
+  const data = {};
+  questionNames.forEach(qName => {
+    data[qName] = formData.get(qName) || '';
+  });
+  localStorage.setItem('test_data', JSON.stringify(data));
+}
+
+function restoreForm() {
+  const saved = JSON.parse(localStorage.getItem('test_data') || '{}');
+  questionNames.forEach(qName => {
+    const input = form.elements[qName];
+    if (input) input.value = saved[qName] || '';
+  });
+}
+
 form.addEventListener('submit', async function (e) {
   const formData = new FormData(form);
   const errorEl = document.getElementById('reg-error');
@@ -167,6 +216,11 @@ form.addEventListener('submit', async function (e) {
       })
     }
     )
+    const phone = formData.get('phone');
+    if (!/^[7]\d{10}$/.test(phone)) {
+      errorEl.textContent = 'Phone must be 11 characters, format: 7XXXXXXXXXX';
+      return;
+}
     window.location.href = 'bye.html'
   }
   catch (err) {
@@ -174,7 +228,9 @@ form.addEventListener('submit', async function (e) {
     errorEl.textContent = 'Server error. Please try again.';
     }
 
-  console.log('Data:', data, 'Approved:', approved, 'repeated:', repeated);
-  // Later: Send to NocoDB with { email, approved }  
+  console.log('Data:', data, 'Approved:', approved, 'repeated:', repeated); 
 });
+
+form.addEventListener('input', saveForm);
+restoreForm();
 
