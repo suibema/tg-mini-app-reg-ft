@@ -166,13 +166,13 @@ form.addEventListener('submit', async function (e) {
         "tg-id": tgUserId
       })
     }
-    )}
+    )
+    window.location.href = 'bye.html'
+  }
   catch (err) {
     console.error(err);
     errorEl.textContent = 'Server error. Please try again.';
     }
-  
-  window.location.href = 'bye.html'
 
   console.log('Data:', data, 'Approved:', approved, 'repeated:', repeated);
   // Later: Send to NocoDB with { email, approved }  
