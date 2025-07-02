@@ -2,13 +2,19 @@ function getTelegramUserId() {
   if (window.Telegram && Telegram.WebApp && Telegram.WebApp.initDataUnsafe) {
     const user = Telegram.WebApp.initDataUnsafe.user;
     if (user && user.id) {
-      return user.id; // tg-id
+      return user.id;
     }
   }
   return null;
-};
-  const tgUserId = getTelegramUserId();
-  console.log("Telegram ID:", tgUserId);
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  Telegram.WebApp.ready();
+  const id = getTelegramUserId();
+  console.log("tg-id:", id);
+  window.tgUserId = id;
+});
+
 
 document.addEventListener('DOMContentLoaded', () => {
   const select = document.getElementById('city');
@@ -157,7 +163,7 @@ form.addEventListener('submit', async function (e) {
         "Гражданство": data.citizen,
         "Город": data.city,
         "Скрининг итог": approved,
-        "tg-id": tgUserId
+        "tg-id": window.tgUserId
       })
     }
     )
