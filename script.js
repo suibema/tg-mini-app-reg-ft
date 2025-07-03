@@ -196,86 +196,6 @@ form.addEventListener('submit', async function (e) {
     console.error(err);
     errorEl.textContent = 'Server error. Please try again.';
     }
-
-  let approved_first = 'ок';
-  // Multi-cascade conditions for rejection
-  if (
-    (data.hours === 'Менее 20 часов') ||
-    (data.study === "Среднее общее (школа)") ||
-    (data.first === 'SMM' && (
-      data.finished === "2022 и ранее" ||
-      data.finished === "2023" ||
-      data.finished === "2029 и позднее" ||
-      (data.study === "Среднее специальное" && data.finished !== '2026') ||
-      (data.study === 'Аспирантура')
-    )) ||
-    (data.first === 'University Partnership' && (
-      data.finished === "2029 и позднее" ||
-      (data.study === "Среднее специальное" && data.finished !== '2026')
-    )) ||
-    (data.first === 'Sales' && (
-      data.finished === "2029 и позднее" ||
-      (data.study === "Магистратура" && (data.finished === "2022 и ранее" || data.finished === "2028")) ||
-      (data.study === "Аспирантура" && (data.finished !== "2026" && data.finished !== "2027" && data.finished !== "2028")) ||
-      (data.study === "Среднее специальное" && (data.finished !== "2024" && data.finished !== "2025" && data.finished !== "2026"))
-    )) ||
-    (data.first === 'Account manager' && (
-      data.finished === "2029 и позднее" ||
-      (data.study === "Магистратура" && (data.finished === "2022 и ранее" || data.finished === "2028")) ||
-      (data.study === "Аспирантура" && (data.finished !== "2026" && data.finished !== "2027" && data.finished !== "2028")) ||
-      (data.study === "Среднее специальное" && (data.finished !== "2024" && data.finished !== "2025" && data.finished !== "2026"))
-    )) ||
-    (data.first === 'Video Editor' && (
-      data.finished === "2029 и позднее" ||
-      (data.study === "Среднее специальное" && data.finished !== '2026')
-    )) ||
-    (data.first === 'Projects' && (
-      data.finished === "2029 и позднее" ||
-      (data.study === "Среднее специальное" && data.finished !== '2026')
-    ))
-  ) {
-    approved_first = 'отказ';
-  }
-
-  let approved_second = 'ок';
-  // Multi-cascade conditions for rejection
-  if (
-    (data.hours === 'Менее 20 часов') ||
-    (data.study === "Среднее общее (школа)") ||
-    (data.second === 'SMM' && (
-      data.finished === "2022 и ранее" ||
-      data.finished === "2023" ||
-      data.finished === "2029 и позднее" ||
-      (data.study === "Среднее специальное" && data.finished !== '2026') ||
-      (data.study === 'Аспирантура')
-    )) ||
-    (data.second === 'University Partnership' && (
-      data.finished === "2029 и позднее" ||
-      (data.study === "Среднее специальное" && data.finished !== '2026')
-    )) ||
-    (data.second === 'Sales' && (
-      data.finished === "2029 и позднее" ||
-      (data.study === "Магистратура" && (data.finished === "2022 и ранее" || data.finished === "2028")) ||
-      (data.study === "Аспирантура" && (data.finished !== "2026" && data.finished !== "2027" && data.finished !== "2028")) ||
-      (data.study === "Среднее специальное" && (data.finished !== "2024" && data.finished !== "2025" && data.finished !== "2026"))
-    )) ||
-    (data.second === 'Account manager' && (
-      data.finished === "2029 и позднее" ||
-      (data.study === "Магистратура" && (data.finished === "2022 и ранее" || data.finished === "2028")) ||
-      (data.study === "Аспирантура" && (data.finished !== "2026" && data.finished !== "2027" && data.finished !== "2028")) ||
-      (data.study === "Среднее специальное" && (data.finished !== "2024" && data.finished !== "2025" && data.finished !== "2026"))
-    )) ||
-    (data.second === 'Video Editor' && (
-      data.finished === "2029 и позднее" ||
-      (data.study === "Среднее специальное" && data.finished !== '2026')
-    )) ||
-    (data.second === 'Projects' && (
-      data.finished === "2029 и позднее" ||
-      (data.study === "Среднее специальное" && data.finished !== '2026')
-    ))
-  ) {
-    approved_second = 'отказ';
-  }
   
   if (data.city === 'Другой') {data.city = data.city_other};
   if (data.citizen === 'Другое') {data.citizen = data.citizen_other};
@@ -286,6 +206,87 @@ form.addEventListener('submit', async function (e) {
       errorEl.textContent = 'Phone must be 11 characters, format: 7XXXXXXXXXX';
       return;
     }
+
+    let approved_first = 'ок';
+  // Multi-cascade conditions for rejection
+    if (
+      (data.hours === 'Менее 20 часов') ||
+      (data.study === "Среднее общее (школа)") ||
+      (data.first === 'SMM' && (
+        data.finished === "2022 и ранее" ||
+        data.finished === "2023" ||
+        data.finished === "2029 и позднее" ||
+        (data.study === "Среднее специальное" && data.finished !== '2026') ||
+        (data.study === 'Аспирантура')
+      )) ||
+      (data.first === 'University Partnership' && (
+        data.finished === "2029 и позднее" ||
+        (data.study === "Среднее специальное" && data.finished !== '2026')
+      )) ||
+      (data.first === 'Sales' && (
+        data.finished === "2029 и позднее" ||
+        (data.study === "Магистратура" && (data.finished === "2022 и ранее" || data.finished === "2028")) ||
+        (data.study === "Аспирантура" && (data.finished !== "2026" && data.finished !== "2027" && data.finished !== "2028")) ||
+        (data.study === "Среднее специальное" && (data.finished !== "2024" && data.finished !== "2025" && data.finished !== "2026"))
+      )) ||
+      (data.first === 'Account manager' && (
+        data.finished === "2029 и позднее" ||
+        (data.study === "Магистратура" && (data.finished === "2022 и ранее" || data.finished === "2028")) ||
+        (data.study === "Аспирантура" && (data.finished !== "2026" && data.finished !== "2027" && data.finished !== "2028")) ||
+        (data.study === "Среднее специальное" && (data.finished !== "2024" && data.finished !== "2025" && data.finished !== "2026"))
+      )) ||
+      (data.first === 'Video Editor' && (
+        data.finished === "2029 и позднее" ||
+        (data.study === "Среднее специальное" && data.finished !== '2026')
+      )) ||
+      (data.first === 'Projects' && (
+        data.finished === "2029 и позднее" ||
+        (data.study === "Среднее специальное" && data.finished !== '2026')
+      ))
+    ) {
+      approved_first = 'отказ';
+    }
+
+    let approved_second = 'ок';
+  // Multi-cascade conditions for rejection
+    if (
+      (data.hours === 'Менее 20 часов') ||
+      (data.study === "Среднее общее (школа)") ||
+      (data.second === 'SMM' && (
+        data.finished === "2022 и ранее" ||
+        data.finished === "2023" ||
+        data.finished === "2029 и позднее" ||
+        (data.study === "Среднее специальное" && data.finished !== '2026') ||
+        (data.study === 'Аспирантура')
+      )) ||
+      (data.second === 'University Partnership' && (
+        data.finished === "2029 и позднее" ||
+        (data.study === "Среднее специальное" && data.finished !== '2026')
+      )) ||
+      (data.second === 'Sales' && (
+        data.finished === "2029 и позднее" ||
+        (data.study === "Магистратура" && (data.finished === "2022 и ранее" || data.finished === "2028")) ||
+        (data.study === "Аспирантура" && (data.finished !== "2026" && data.finished !== "2027" && data.finished !== "2028")) ||
+        (data.study === "Среднее специальное" && (data.finished !== "2024" && data.finished !== "2025" && data.finished !== "2026"))
+      )) ||
+      (data.second === 'Account manager' && (
+        data.finished === "2029 и позднее" ||
+        (data.study === "Магистратура" && (data.finished === "2022 и ранее" || data.finished === "2028")) ||
+        (data.study === "Аспирантура" && (data.finished !== "2026" && data.finished !== "2027" && data.finished !== "2028")) ||
+        (data.study === "Среднее специальное" && (data.finished !== "2024" && data.finished !== "2025" && data.finished !== "2026"))
+      )) ||
+      (data.second === 'Video Editor' && (
+        data.finished === "2029 и позднее" ||
+        (data.study === "Среднее специальное" && data.finished !== '2026')
+      )) ||
+      (data.second === 'Projects' && (
+        data.finished === "2029 и позднее" ||
+        (data.study === "Среднее специальное" && data.finished !== '2026')
+      ))
+    ) {
+      approved_second = 'отказ';
+    }
+    
     const res = await fetch('https://ndb.fut.ru/api/v2/tables/maiff22q0tefj6t/records', {
       method: 'POST',
       headers: {
