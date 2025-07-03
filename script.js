@@ -13,8 +13,10 @@ function getTelegramUserId() {
 document.addEventListener("DOMContentLoaded", () => {
   Telegram.WebApp.ready();
   const id = getTelegramUserId();
+  const startParam = Telegram.WebApp.initDataUnsafe?.start_param;
   console.log("tg-id:", id);
   window.tgUserId = id;
+  window.tgUserStartParam = startParam;
 });
 
 
@@ -212,7 +214,8 @@ form.addEventListener('submit', async function (e) {
         "Гражданство": data.citizen,
         "Город": data.city,
         "Скрининг итог": approved,
-        "tg-id": window.tgUserId
+        "tg-id": window.tgUserId,
+        "start-param": window.tgUserStartParam
       })
     }
     )
