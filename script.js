@@ -162,6 +162,11 @@ form.addEventListener('submit', async function (e) {
     errorEl.textContent = 'Server error. Please try again.';
     }
 
+  const phone = formData.get('phone');
+  if (!/^[7]\d{10}$/.test(phone)) {
+    errorEl.textContent = 'Phone must be 11 characters, format: 7XXXXXXXXXX';
+    return;
+  
   let approved = 'ок';
   // Multi-cascade conditions
   if ( 
@@ -219,10 +224,6 @@ form.addEventListener('submit', async function (e) {
       })
     }
     )
-    const phone = formData.get('phone');
-    if (!/^[7]\d{10}$/.test(phone)) {
-      errorEl.textContent = 'Phone must be 11 characters, format: 7XXXXXXXXXX';
-      return;
 }
     window.location.href = 'bye.html'
   }
