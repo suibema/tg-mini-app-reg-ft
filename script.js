@@ -96,6 +96,41 @@ function restoreForm() {
   });
 }
 
+// Function to show text blocks based on dropdown selection
+function updateTextBlocks(dropdownId, mappings) {
+  const dropdown = document.getElementById(dropdownId);
+  const selectedValue = dropdown.value;
+  
+  // Hide all mapped text blocks
+  mappings.forEach(([_, textBlockId]) => {
+    const block = document.getElementById(textBlockId);
+    if (block) block.style.display = 'none';
+  });
+
+  // Show the matching text block if it exists
+  const textBlockId = mappings.find(([optionValue]) => optionValue === selectedValue)?.[1];
+  if (textBlockId) {
+    const block = document.getElementById(textBlockId);
+    if (block) block.style.display = 'block';
+  }
+}
+
+const questionMappings = [
+  ['Projects', 'textBlock1'],
+  ['Research Manager', 'textBlock2'],
+  ['Corporate Marketing', 'textBlock3'],
+  ['SMM', 'textBlock4'],
+  ['Video Editor', 'textBlock5'],
+  ['Sales', 'textBlock6'],
+  ['University Partnership', 'textBlock7'],
+  ['Account manager', 'textBlock8']
+];
+
+// event listeners
+document.getElementById('first').addEventListener('change', () => {
+  updateTextBlocks('first', questionMappings);
+});
+
 form.addEventListener('submit', async function (e) {
   const formData = new FormData(form);
   const errorEl = document.getElementById('reg-error');
