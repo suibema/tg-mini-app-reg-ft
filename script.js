@@ -118,7 +118,6 @@ form.addEventListener('submit', async function (e) {
   };
   e.preventDefault();
   let repeated = 'нет';
-
   try {
     const res = await fetch(`https://ndb.fut.ru/api/v2/tables/maiff22q0tefj6t/records/count?where=(E-mail,eq,${formData.get('email')})`, {
       method: 'GET',
@@ -162,7 +161,7 @@ form.addEventListener('submit', async function (e) {
     console.error(err);
     errorEl.textContent = 'Server error. Please try again.';
     }
-  
+
   let approved = 'ок';
   // Multi-cascade conditions
   if ( 
@@ -193,6 +192,11 @@ form.addEventListener('submit', async function (e) {
   if (data.citizen === 'Другое') {data.citizen = data.citizen_other};
   
   try {
+    const phone_check = formData.get('phone');
+    if (!/^[7]\d{10}$/.test(phone_check)) {
+      errorEl.textContent = 'Phone must be 11 characters, format: 7XXXXXXXXXX';
+      return;
+    }
     const res = await fetch('https://ndb.fut.ru/api/v2/tables/maiff22q0tefj6t/records', {
       method: 'POST',
       headers: {
@@ -232,4 +236,3 @@ form.addEventListener('submit', async function (e) {
 
 form.addEventListener('input', saveForm);
 restoreForm();
-
