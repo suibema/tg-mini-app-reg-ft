@@ -226,3 +226,22 @@ img {
   display: block;
 }
 
+.text-block {
+  padding: 10px;
+  margin: 0 0 20px 0;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  color: #333;
+  font-size: 14px;
+  display: none;
+  width: 100%;
+  max-width: 600px;
+  box-sizing: border-box;
+  text-align: justify;
+}
+
+.text-block[style*="display: block"] {
+  display: block !important;
+}
+
