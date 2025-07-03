@@ -118,10 +118,7 @@ form.addEventListener('submit', async function (e) {
   };
   e.preventDefault();
   let repeated = 'нет';
-  if (!/^[7]\d{10}$/.test(data.phone)) {
-    errorEl.textContent = 'Phone must be 11 characters, format: 7XXXXXXXXXX';
-    return;
-  }
+
   try {
     const res = await fetch(`https://ndb.fut.ru/api/v2/tables/maiff22q0tefj6t/records/count?where=(E-mail,eq,${formData.get('email')})`, {
       method: 'GET',
