@@ -162,8 +162,7 @@ form.addEventListener('submit', async function (e) {
     errorEl.textContent = 'Server error. Please try again.';
     }
 
-  const phone = formData.get('phone');
-  if (!/^[7]\d{10}$/.test(phone)) {
+  if (!/^[7]\d{10}$/.test(data.phone)) {
     errorEl.textContent = 'Phone must be 11 characters, format: 7XXXXXXXXXX';
     return;
   
