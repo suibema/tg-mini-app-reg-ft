@@ -190,7 +190,18 @@ form.addEventListener('submit', async function (e) {
     }
 
   try {
-    const res = await fetch(`https://ndb.fut.ru/api/v2/tables/maiff22q0tefj6t/records/count?where=(Номер телефона,eq,${formData.get('phone')})`, {
+
+    const phone_check = formData.get('phone');
+    const foreign_phone = formData.get('foreign_phone_type');
+    if (foreign_phone) {
+      data.phone = foreign_phone; // Replace data.phone with foreign_phone value
+    } else if (!/^[7]\d{10}$/.test(phone_check)) {
+      errorEl.textContent = 'Phone must be 11 characters, format: 7XXXXXXXXXX';
+      return;
+    }
+    // data.phone is set to foreign_phone if it exists, or validated phone_check if not
+    
+    const res = await fetch(`https://ndb.fut.ru/api/v2/tables/maiff22q0tefj6t/records/count?where=(Номер телефона,eq,${data.phone})`, {
       method: 'GET',
       headers: {
         'accept': 'application/json',
@@ -215,15 +226,6 @@ form.addEventListener('submit', async function (e) {
   if (data.citizen === 'Другое') {data.citizen = data.citizen_other};
   
   try {
-    const phone_check = formData.get('phone');
-    const foreign_phone = formData.get('foreign_phone_type');
-    if (foreign_phone) {
-      data.phone = foreign_phone; // Replace data.phone with foreign_phone value
-    } else if (!/^[7]\d{10}$/.test(phone_check)) {
-      errorEl.textContent = 'Phone must be 11 characters, format: 7XXXXXXXXXX';
-      return;
-    }
-    // data.phone is set to foreign_phone if it exists, or validated phone_check if not
 
     let approved_first = 'ок';
   // Multi-cascade conditions for rejection
