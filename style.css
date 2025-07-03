@@ -85,10 +85,14 @@ padding: 10px;
 font-size: 1rem;
 border: 1px solid #dcdcdc;
 border-radius: 4px;
-margin-bottom: 25px;
+margin-bottom: 20px;
 font-family: "Ubuntu", sans-serif;
 font-weight: 400;
 box-sizing: border-box;
+}
+
+#phone{
+  margin-bottom: -8px;
 }
 
 input:focus, select:focus {
@@ -245,3 +249,54 @@ img {
   display: block !important;
 }
 
+#foreign_phone {
+  list-style: none;
+  padding: 0px;
+  margin-bottom: 10px;
+}
+
+#foreign_phone_input {
+  padding-left: 30px;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+#foreign_phone_yes[type="checkbox"] {
+  -webkit-appearance: none; /* Safari/Chrome */
+  appearance: none; /* Отключаем стандартный стиль */
+  width: 15px;
+  height: 15px;
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+  vertical-align: middle;
+
+  border: 2px solid #3498db;
+  border-radius: 4px;
+  background-color: #fff;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+#foreign_phone_yes[type="checkbox"]:hover {
+  border-color: #2980b9;
+}
+
+#foreign_phone_yes[type="checkbox"]:checked {
+  background-color: #3498db;
+  border-color: #3498db;
+}
+
+#foreign_phone_yes[type="checkbox"]:checked::after {
+  content: '\2713'; 
+  color: white;
+  font-size: 12px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#foreign_phone_text{
+  font-size: 14px;
+}
