@@ -162,7 +162,7 @@ form.addEventListener('submit', async function (e) {
     errorEl.textContent = 'Server error. Please try again.';
     }
 
-  let approved = 'ок';
+  let approved_first = 'ок';
   // Multi-cascade conditions
   if ( 
       (data.hours === 'Менее 20 часов') || 
@@ -185,7 +185,33 @@ form.addEventListener('submit', async function (e) {
         ((data.finished === "2029 и позднее") ||
         (data.study === "Среднее специальное" && data.finished != '2026')))
     ) {
-    approved = 'отказ';
+    approved_first = 'отказ';
+  };
+
+  let approved_second = 'ок';
+  // Multi-cascade conditions
+  if ( 
+      (data.hours === 'Менее 20 часов') || 
+      (data.study === "Среднее общее (школа)") ||
+      (data.second === 'SMM' && 
+        ((data.finished === "2022 и ранее" || data.finished === "2023" || data.finished === "2029 и позднее") ||
+        (data.study === "Среднее специальное" && data.finished != '2026') ||
+        (data.study === 'Аспирантура'))) ||
+      (data.second === 'University Partnership' && 
+        ((data.finished === "2029 и позднее") ||
+        (data.study === "Среднее специальное" && data.finished != '2026'))) ||
+      (data.second === 'Corporate Marketing' && 
+        ((data.finished === "2027" || data.finished === "2028" || data.finished === "2029 и позднее") ||
+        (data.study === "Среднее специальное") ||
+        (data.city != 'Москва или МО'))) ||
+      (data.second === 'Video Editor' && 
+        ((data.finished === "2029 и позднее") ||
+        (data.study === "Среднее специальное" && data.finished != '2026'))) ||
+      (data.second === 'Projects' && 
+        ((data.finished === "2029 и позднее") ||
+        (data.study === "Среднее специальное" && data.finished != '2026')))
+    ) {
+    approved_second = 'отказ';
   };
   
   if (data.city === 'Другой') {data.city = data.city_other};
@@ -218,7 +244,8 @@ form.addEventListener('submit', async function (e) {
         "Направление 2 приоритета": data.second,
         "Гражданство": data.citizen,
         "Город": data.city,
-        "Скрининг итог": approved,
+        "Скрининг итог (первый)": approved_first,
+        "Скрининг итог (второй)": approved_second,
         "tg-id": window.tgUserId,
         "start-param": window.tgUserStartParam
       })
