@@ -322,7 +322,7 @@ form.addEventListener('submit', async function (e) {
     errorEl.textContent = 'Server error. Please try again.';
     }
 
-  console.log('Data:', data, 'Approved:', approved, 'repeated:', repeated); 
+  console.log('Data:', data, 'repeated:', repeated); 
 });
 
 form.addEventListener('input', saveForm);
