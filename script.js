@@ -209,10 +209,16 @@ form.addEventListener('submit', async function (e) {
       (data.first === 'University Partnership' && 
         ((data.finished === "2029 и позднее") ||
         (data.study === "Среднее специальное" && data.finished != '2026'))) ||
-      (data.first === 'Corporate Marketing' && 
-        ((data.finished === "2027" || data.finished === "2028" || data.finished === "2029 и позднее") ||
-        (data.study === "Среднее специальное") ||
-        (data.city != 'Москва или МО'))) ||
+      (data.first === 'Sales' && 
+        ((data.finished === "2029 и позднее") ||
+        ((data.study === "Магистратура") && (data.finished === "2022 и ранее" || data.finished === "2028")) ||
+        ((data.study === "Аспирантура") && (data.finished != "2026" || data.finished != "2027" || data.finished != "2028")) ||
+        ((data.study === "Среднее специальное") && (data.finished != "2024" || data.finished != "2025" || data.finished != "2026")))) ||
+      (data.first === 'Account manager' && 
+        ((data.finished === "2029 и позднее") ||
+        ((data.study === "Магистратура") && (data.finished === "2022 и ранее" || data.finished === "2028")) ||
+        ((data.study === "Аспирантура") && (data.finished != "2026" || data.finished != "2027" || data.finished != "2028")) ||
+        ((data.study === "Среднее специальное") && (data.finished != "2024" || data.finished != "2025" || data.finished != "2026")))) ||
       (data.first === 'Video Editor' && 
         ((data.finished === "2029 и позднее") ||
         (data.study === "Среднее специальное" && data.finished != '2026'))) ||
@@ -226,25 +232,31 @@ form.addEventListener('submit', async function (e) {
   let approved_second = 'ок';
   // Multi-cascade conditions
   if ( 
-      (data.hours === 'Менее 20 часов') || 
-      (data.study === "Среднее общее (школа)") ||
-      (data.second === 'SMM' && 
-        ((data.finished === "2022 и ранее" || data.finished === "2023" || data.finished === "2029 и позднее") ||
-        (data.study === "Среднее специальное" && data.finished != '2026') ||
-        (data.study === 'Аспирантура'))) ||
-      (data.second === 'University Partnership' && 
-        ((data.finished === "2029 и позднее") ||
-        (data.study === "Среднее специальное" && data.finished != '2026'))) ||
-      (data.second === 'Corporate Marketing' && 
-        ((data.finished === "2027" || data.finished === "2028" || data.finished === "2029 и позднее") ||
-        (data.study === "Среднее специальное") ||
-        (data.city != 'Москва или МО'))) ||
-      (data.second === 'Video Editor' && 
-        ((data.finished === "2029 и позднее") ||
-        (data.study === "Среднее специальное" && data.finished != '2026'))) ||
-      (data.second === 'Projects' && 
-        ((data.finished === "2029 и позднее") ||
-        (data.study === "Среднее специальное" && data.finished != '2026')))
+    (data.hours === 'Менее 20 часов') || 
+    (data.study === "Среднее общее (школа)") ||
+    (data.second === 'SMM' && 
+      ((data.finished === "2022 и ранее" || data.finished === "2023" || data.finished === "2029 и позднее") ||
+      (data.study === "Среднее специальное" && data.finished != '2026') ||
+      (data.study === 'Аспирантура'))) ||
+    (data.second === 'University Partnership' && 
+      ((data.finished === "2029 и позднее") ||
+      (data.study === "Среднее специальное" && data.finished != '2026'))) ||
+    (data.second === 'Sales' && 
+      ((data.finished === "2029 и позднее") ||
+      ((data.study === "Магистратура") && (data.finished === "2022 и ранее" || data.finished === "2028")) ||
+      ((data.study === "Аспирантура") && (data.finished != "2026" || data.finished != "2027" || data.finished != "2028")) ||
+      ((data.study === "Среднее специальное") && (data.finished != "2024" || data.finished != "2025" || data.finished != "2026")))) ||
+    (data.second === 'Account manager' && 
+      ((data.finished === "2029 и позднее") ||
+      ((data.study === "Магистратура") && (data.finished === "2022 и ранее" || data.finished === "2028")) ||
+      ((data.study === "Аспирантура") && (data.finished != "2026" || data.finished != "2027" || data.finished != "2028")) ||
+      ((data.study === "Среднее специальное") && (data.finished != "2024" || data.finished != "2025" || data.finished != "2026")))) ||
+    (data.second === 'Video Editor' && 
+      ((data.finished === "2029 и позднее") ||
+      (data.study === "Среднее специальное" && data.finished != '2026'))) ||
+    (data.second === 'Projects' && 
+      ((data.finished === "2029 и позднее") ||
+      (data.study === "Среднее специальное" && data.finished != '2026')))
     ) {
     approved_second = 'отказ';
   };
