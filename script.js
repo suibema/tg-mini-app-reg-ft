@@ -76,6 +76,20 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
+document.addEventListener('DOMContentLoaded', () => {
+    const select = document.getElementById('foreign_phone_yes');
+    const otherInput = document.getElementById('foreign_phone_type');
+  
+    select.addEventListener('change', () => {
+      if (select.checked) {
+        otherInput.style.display = 'block';
+      } else {
+        otherInput.style.display = 'none';
+        otherInput.value = ''; // Clear the input when hiding
+      }
+    });
+  });
+
 const questionNames = ['surname', 'name', 'email', 'phone', 'city', 'city-other', 
   'citizen', 'citizen-other', 'vuz', 'specialty', 'study', 'finished', 
   'hours', 'first', 'second'];
@@ -202,10 +216,14 @@ form.addEventListener('submit', async function (e) {
   
   try {
     const phone_check = formData.get('phone');
-    if (!/^[7]\d{10}$/.test(phone_check)) {
+    const foreign_phone = formData.get('foreign_phone_type');
+    if (foreign_phone) {
+      data.phone = foreign_phone; // Replace data.phone with foreign_phone value
+    } else if (!/^[7]\d{10}$/.test(phone_check)) {
       errorEl.textContent = 'Phone must be 11 characters, format: 7XXXXXXXXXX';
       return;
     }
+    // data.phone is set to foreign_phone if it exists, or validated phone_check if not
 
     let approved_first = 'ок';
   // Multi-cascade conditions for rejection
