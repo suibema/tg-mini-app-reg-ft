@@ -23,6 +23,16 @@
     <label>Телефон</label>
     <input type="text" name="phone" placeholder="7XXXXXXXXXX" id="phone"/>
     
+  <ul class="question-list" name='foreign_phone' id='foreign_phone'> 
+  <li class="question-list__item" id="foreign_phone_input">
+      <input type="checkbox" name="foreign_phone_yes" value="1" id="foreign_phone_yes">
+      <label for="foreign_phone_yes" id="foreign_phone_text">У меня иностранный номер</label>
+    </li>
+  </ul>
+
+  <input type="text" name="foreign_phone_type" placeholder="+" id="foreign_phone_type" style="display: none;"/>
+
+  
     <label>Город проживания</label>
     <select name="city" id="city">
       <option value="">- выбрать -</option>
@@ -200,6 +210,6 @@
   </form>
   <p id="reg-error" style="color: red;"></p>
 
-  <script src="script.js"></script>
+  <script src="test_tg.js"></script>
 </body>
 </html>
