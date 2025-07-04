@@ -200,7 +200,10 @@ form.addEventListener('submit', async function (e) {
       return;
     }
     // data.phone is set to foreign_phone if it exists, or validated phone_check if not
-    
+    if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(data.email)) {
+    errorEl.textContent = 'Please enter a valid email (e.g., user@domain.com)';
+    return;
+    }
     const res = await fetch(`https://ndb.fut.ru/api/v2/tables/maiff22q0tefj6t/records/count?where=(Номер телефона,eq,${data.phone})`, {
       method: 'GET',
       headers: {
