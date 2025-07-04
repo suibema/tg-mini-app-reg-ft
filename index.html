@@ -12,13 +12,13 @@
   <h2>Регистрация</h2>
   <form id="reg-form">
     <label>Имя</label>
-    <input type="text" name="name" id="name"/>
+    <input type="text" required name="name" id="name"/>
     
     <label>Фамилия</label>
-    <input type="text" name="surname" id="surname"/>
+    <input type="text" required name="surname" id="surname"/>
 
     <label>Укажи, пожалуйста, свою почту</label>
-    <input type="text" name="email" id="email" placeholder="your@email.com" />
+    <input type="text" required name="email" id="email" placeholder="your@email.com" />
     
     <label>Оставь номер телефона — он может понадобиться для связи</label>
     <input type="text" name="phone" placeholder="7XXXXXXXXXX" id="phone"/>
@@ -33,13 +33,13 @@
   <input type="text" name="foreign_phone_type" placeholder="+" id="foreign_phone_type" style="display: none;"/>
 
     <label>Где ты учишься или учился(ась)? Напиши название учебного заведения</label>
-    <input type="text" name="vuz" id="vuz"/>
+    <input type="text" required name="vuz" id="vuz"/>
     
     <label>Какое у тебя направление подготовки? Напиши свою специальность</label>
-    <input type="text" name="specialty" id="specialty"/>
+    <input type="text" required name="specialty" id="specialty"/>
     
     <label>Выбери город, в котором ты сейчас живёшь</label>
-    <select name="city" id="city">
+    <select name="city" required id="city">
       <option value="">- выбрать -</option>
       <option value="Москва или МО">Москва или МО</option>
       <option value="Санкт-Петербург">Санкт-Петербург</option>
@@ -50,7 +50,7 @@
     <input type="text" name="city-other" id="city-other" placeholder="Напиши свой город" style="display: none;">
     
     <label>Укажи своё гражданство</label>
-    <select name="citizen" id="citizen">
+    <select name="citizen" required id="citizen">
       <option value="">- выбрать -</option>
       <option value="РФ">РФ</option>
       <option value="Беларусь">Беларусь</option>
@@ -63,7 +63,7 @@
     <input type="text" name="citizen-other" id="citizen-other" placeholder="Напиши свое гражданство" style="display: none;">
     
     <label>Укажи, какую степень образования ты получаешь сейчас или получил(а) последней</label>
-    <select name="study">
+    <select name="study" required>
       <option value="">- выбрать -</option>
       <option value="Бакалавриат">Бакалавриат</option>
       <option value="Специалитет">Специалитет</option>
@@ -74,7 +74,7 @@
     </select>
     
     <label>Когда планируешь или уже закончил(а) учёбу?</label>
-    <select name="finished">
+    <select name="finished" required>
       <option value="">- выбрать -</option>
       <option value="2022 и ранее">2022 и ранее</option>
       <option value="2023">2023</option>
@@ -87,7 +87,7 @@
     </select>
     
     <label>Сколько часов в неделю ты готов(а) уделять стажировке?</label>
-    <select name="hours">
+    <select name="hours" required>
       <option value="">- выбрать -</option>
       <option value="Менее 20 часов">Менее 20 часов</option>
       <option value="20 часов и более">20 часов и более</option>
@@ -96,7 +96,7 @@
     </select>
    
     <label>Направление первого приоритета</label>
-    <select name="first" id="first">
+    <select name="first" id="first" required>
       <option value="">- выбрать -</option>
       <option value="Projects">Projects</option>
       <option value="Research Manager">Research Manager</option>
@@ -152,41 +152,41 @@
       <label>С какими из этих инструментов ты умеешь работать? 
         <br>(Можно выбрать несколько вариантов)</label>
       <li class="question-list__item">
-        <input type="checkbox" name="first_video" value="123" id="first_video-a">
+        <input type="checkbox" name="first_video" value="Adobe Premiere Pro" id="first_video-a">
         <label for="first_video-a">Adobe Premiere Pro</label>
       </li>
       <li class="question-list__item">
-        <input type="checkbox" name="first_video" value="b" id="first_video-b">
+        <input type="checkbox" name="first_video" value="Figma" id="first_video-b">
         <label for="first_video-b">Figma</label>
       </li>
       <li class="question-list__item">
-        <input type="checkbox" name="first_video" value="c" id="first_video-c">
+        <input type="checkbox" name="first_video" value="Final Cut Pro" id="first_video-c">
         <label for="first_video-c">Final Cut Pro</label>
       </li>
       <li class="question-list__item">
-        <input type="checkbox" name="first_video" value="d" id="first_video-d">
+        <input type="checkbox" name="first_video" value="DaVinci Resolve" id="first_video-d">
         <label for="first_video-d">DaVinci Resolve</label>
       </li>
       <li class="question-list__item">
-        <input type="checkbox" name="first_video" value="e" id="first_video-e">
+        <input type="checkbox" name="first_video" value="CapCut" id="first_video-e">
         <label for="first_video-e">CapCut</label>
       </li>
       <li class="question-list__item">
-        <input type="checkbox" name="first_video" value="f" id="first_video-e">
+        <input type="checkbox" name="first_video" value="Sony Vegas Pro" id="first_video-f">
         <label for="first_video-e">Sony Vegas Pro</label>
       </li>
       <li class="question-list__item">
-        <input type="checkbox" name="first_video" value="g" id="first_video-e">
-        <label for="first_video-e"> Movavi Video Editor</label>
+        <input type="checkbox" name="first_video" value="Movavi Video Editor" id="first_video-g">
+        <label for="first_video-e">Movavi Video Editor</label>
       </li>
       <li class="question-list__item">
-        <input type="checkbox" name="first_video" value="j" id="first_video-f">
+        <input type="checkbox" name="first_video" value="Filmora" id="first_video-j">
         <label for="first_video-f">Filmora</label>
       </li>
     </ul>
 
     <label>Направление второго приоритета</label>
-    <select name="second" id="second">
+    <select name="second" id="second" required>
       <option value="">- выбрать -</option>
       <option value="Projects">Projects</option>
       <option value="Research Manager">Research Manager</option>
@@ -198,37 +198,38 @@
     </select>
 
     <ul class="question-list" name='second_video' id="second_video" style="display: none;"> 
-      <label>С какими из этих инструментов ты умеешь работать? (Можно выбрать несколько вариантов)</label>
+      <label>С какими из этих инструментов ты умеешь работать? 
+        <br>(Можно выбрать несколько вариантов)</label>
       <li class="question-list__item">
-        <input type="checkbox" name="second_video" value="a" id="second_video-a">
+        <input type="checkbox" name="second_video" value="Adobe Premiere Pro" id="second_video-a">
         <label for="second_video-a">Adobe Premiere Pro</label>
       </li>
       <li class="question-list__item">
-        <input type="checkbox" name="second_video" value="b" id="second_video-b">
+        <input type="checkbox" name="second_video" value="Figma" id="second_video-b">
         <label for="second_video-b">Figma</label>
       </li>
       <li class="question-list__item">
-        <input type="checkbox" name="second_video" value="c" id="second_video-c">
+        <input type="checkbox" name="second_video" value="Final Cut Pro" id="second_video-c">
         <label for="second_video-c">Final Cut Pro</label>
       </li>
       <li class="question-list__item">
-        <input type="checkbox" name="second_video" value="d" id="second_video-d">
+        <input type="checkbox" name="second_video" value="DaVinci Resolve" id="second_video-d">
         <label for="second_video-d">DaVinci Resolve</label>
       </li>
       <li class="question-list__item">
-        <input type="checkbox" name="second_video" value="e" id="second_video-e">
+        <input type="checkbox" name="second_video" value="CapCut" id="second_video-e">
         <label for="second_video-e">CapCut</label>
       </li>
       <li class="question-list__item">
-        <input type="checkbox" name="second_video" value="f" id="second_video-f">
+        <input type="checkbox" name="second_video" value="Sony Vegas Pro" id="second_video-f">
         <label for="second_video-f">Sony Vegas Pro</label>
       </li>
       <li class="question-list__item">
-        <input type="checkbox" name="second_video" value="g" id="second_video-g">
-        <label for="second_video-g"> Movavi Video Editor</label>
+        <input type="checkbox" name="second_video" value="Movavi Video Editor" id="second_video-g">
+        <label for="second_video-g">Movavi Video Editor</label>
       </li>
       <li class="question-list__item">
-        <input type="checkbox" name="second_video" value="j" id="second_video-j">
+        <input type="checkbox" name="second_video" value="Filmora" id="second_video-j">
         <label for="second_video-j">Filmora</label>
       </li>
     </ul>
