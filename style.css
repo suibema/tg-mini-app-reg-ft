@@ -97,7 +97,7 @@ box-sizing: border-box;
 
 input:focus, select:focus {
 outline: none;
-border-color: #3498db;
+border-color: #F46D00;
 box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
 }
 
