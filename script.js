@@ -145,9 +145,16 @@ document.getElementById('first').addEventListener('change', () => {
   updateTextBlocks('first', questionMappings);
 });
 
+function getSelectedCheckboxValues(name) {
+  const checkboxes = document.querySelectorAll(`input[name="${name}"]:checked`);
+  return Array.from(checkboxes).map(cb => cb.value);
+}
+
 form.addEventListener('submit', async function (e) {
   const formData = new FormData(form);
   const errorEl = document.getElementById('reg-error');
+  const selectedFirstVideoValues = getSelectedCheckboxValues("first_video");
+  const selectedSecondVideoValues = getSelectedCheckboxValues("second_video");
   const data = {
     surname: formData.get('surname'),
     name: formData.get('name'),
@@ -229,7 +236,10 @@ form.addEventListener('submit', async function (e) {
   if (data.citizen === 'Другое') {data.citizen = data.citizen_other};
   
   try {
-
+    const aFirstChecked = document.getElementById('first_video-a').checked;
+    const bFirstChecked = document.getElementById('first_video-b').checked;
+    const aSecondChecked = document.getElementById('second_video-a').checked;
+    const bSecondChecked = document.getElementById('second_video-b').checked;
     let approved_first = 'ок';
   // Multi-cascade conditions for rejection
     if (
@@ -260,7 +270,8 @@ form.addEventListener('submit', async function (e) {
       )) ||
       (data.first === 'Video Editor' && (
         data.finished === "2029 и позднее" ||
-        (data.study === "Среднее специальное" && data.finished !== '2026')
+        (data.study === "Среднее специальное" && data.finished !== '2026') ||
+        (!aFirstChecked || !bFirstChecked)
       )) ||
       (data.first === 'Projects' && (
         data.finished === "2029 и позднее" ||
@@ -300,7 +311,8 @@ form.addEventListener('submit', async function (e) {
       )) ||
       (data.second === 'Video Editor' && (
         data.finished === "2029 и позднее" ||
-        (data.study === "Среднее специальное" && data.finished !== '2026')
+        (data.study === "Среднее специальное" && data.finished !== '2026') ||
+        (!aSecondChecked || !bSecondChecked)
       )) ||
       (data.second === 'Projects' && (
         data.finished === "2029 и позднее" ||
@@ -308,6 +320,10 @@ form.addEventListener('submit', async function (e) {
       ))
     ) {
       approved_second = 'отказ';
+    }
+
+    if (selectedSecondVideoValues || selectedFirstVideoValues) {
+      window.selectedVideoValues = [...new Set([...selectedFirstVideoValues, ...selectedSecondVideoValues])]
     }
     
     const res = await fetch('https://ndb.fut.ru/api/v2/tables/maiff22q0tefj6t/records', {
@@ -334,7 +350,8 @@ form.addEventListener('submit', async function (e) {
         "Скрининг итог (первый)": approved_first,
         "Скрининг итог (второй)": approved_second,
         "tg-id": window.tgUserId,
-        "start-param": window.tgUserStartParam
+        "start-param": window.tgUserStartParam,
+        "Инструменты Video Editor": window.selectedVideoValues.join(', ')
       })
     }
     )
