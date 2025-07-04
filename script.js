@@ -180,13 +180,13 @@ form.addEventListener('submit', async function (e) {
     
     if (data_email.count > 0) {
       repeated = 'да';
-      errorEl.textContent = 'You have already submitted the reg.';
+      errorEl.textContent = 'Ты уже зарегистрирован. Свяжись с нами через бота, если это не так или если ты хочешь изменить данные';
       return;
     }
   }
   catch (err) {
     console.error(err);
-    errorEl.textContent = 'Server error. Please try again.';
+    errorEl.textContent = 'Ошибка сервера. Повтори попытку позже';
     }
 
   try {
@@ -216,13 +216,13 @@ form.addEventListener('submit', async function (e) {
   
     if (data_phone.count > 0) {
       repeated = 'да';
-      errorEl.textContent = 'You have already submitted the reg.';
+      errorEl.textContent = 'Ты уже зарегистрирован. Свяжись с нами через бота, если это не так или если ты хочешь изменить данные';
       return;
     }
   }
   catch (err) {
     console.error(err);
-    errorEl.textContent = 'Server error. Please try again.';
+    errorEl.textContent = 'Ошибка сервера. Повтори попытку позже';
     }
   
   if (data.city === 'Другой') {data.city = data.city_other};
@@ -342,7 +342,7 @@ form.addEventListener('submit', async function (e) {
   }
   catch (err) {
     console.error(err);
-    errorEl.textContent = 'Server error. Please try again.';
+    errorEl.textContent = 'Ошибка сервера. Повтори попытку позже';
     }
 
   console.log('Data:', data, 'repeated:', repeated); 
