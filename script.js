@@ -151,6 +151,8 @@ function getSelectedCheckboxValues(name) {
 }
 
 form.addEventListener('submit', async function (e) {
+  const fileInput = document.getElementById("fileInput");
+  const file = fileInput.files[0];
   const formData = new FormData(form);
   const errorEl = document.getElementById('reg-error');
   const selectedFirstVideoValues = getSelectedCheckboxValues("first_video");
@@ -325,6 +327,87 @@ form.addEventListener('submit', async function (e) {
     if (selectedSecondVideoValues || selectedFirstVideoValues) {
       window.selectedVideoValues = [...new Set([...selectedFirstVideoValues, ...selectedSecondVideoValues])]
     }
+
+    function validateFile(file) {
+      if (file.size > 15 * 1024 * 1024) {
+          return "Файл слишком большой (макс. 15MB)";
+      }
+
+      const validTypes = [
+          "application/pdf", 
+          "application/msword", 
+          "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+          "application/vnd.ms-excel",
+          "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+          "image/png",
+          "image/jpeg",
+          "image/jpg",
+          "image/gif",
+          "image/webp"
+      ];
+      
+      if (!validTypes.includes(file.type)) {
+          return "Неподдерживаемый формат файла";
+      }
+      
+      return null;
+    }
+    let attachmentData = null;
+    try { 
+      if (file) {
+      const validationError = validateFile(file);
+      if (validationError) {
+          errorEl.textContent =  validationError;
+          return;
+      }
+      const uploadFormData = new FormData(form);
+      uploadFormData.append('file', file);
+      uploadFormData.append('path', 'solutions');
+
+        const uploadResponse = await fetch('https://ndb.fut.ru/api/v2/storage/upload', {
+          method: 'POST',
+          headers: {
+            'xc-token': 'crDte8gB-CSZzNujzSsy9obQRqZYkY3SNp8wre88'
+          },
+          body: uploadFormData
+        });
+
+        let uploadData = await uploadResponse.json();
+        if (!Array.isArray(uploadData)) {
+            uploadData = [uploadData];
+        }
+        
+        if (!uploadData.length || !uploadData[0]?.signedPath) {
+            throw new Error("Не удалось получить информацию о файле");
+        }
+        
+        const firstItem = uploadData[0];
+        const fileName = firstItem.title || file.name;
+        const fileType = file.type;
+        const fileSize = file.size;
+        
+        const getFileIcon = (mimeType) => {
+            if (mimeType.includes("pdf")) return "mdi-file-pdf-outline";
+            if (mimeType.includes("word")) return "mdi-file-word-outline";
+            if (mimeType.includes("excel") || mimeType.includes("spreadsheet")) return "mdi-file-excel-outline";
+            if (mimeType.includes("png")) return "mdi-file-image-outline";
+            return "mdi-file-outline";
+        };
+        
+        attachmentData = [
+            {
+              mimetype: fileType,
+              size: fileSize,
+              title: fileName,
+              url: `https://ndb.fut.ru/${firstItem.path}`,
+              icon: getFileIcon(fileType)
+            }
+        ];
+    }      
+    } catch (err) {
+      errorEl.textContent = 'Не удалось загрузить файл: ' + err.message;
+      return;
+    }
     
     const res = await fetch('https://ndb.fut.ru/api/v2/tables/maiff22q0tefj6t/records', {
       method: 'POST',
@@ -351,7 +434,8 @@ form.addEventListener('submit', async function (e) {
         "Скрининг итог (второй)": approved_second,
         "tg-id": window.tgUserId,
         "start-param": window.tgUserStartParam,
-        "Инструменты Video Editor": window.selectedVideoValues.join(', ')
+        "Инструменты Video Editor": window.selectedVideoValues.join(', '),
+        "Резюме": attachmentData
       })
     }
     )
@@ -361,8 +445,6 @@ form.addEventListener('submit', async function (e) {
     console.error(err);
     errorEl.textContent = 'Ошибка сервера. Повтори попытку позже';
     }
-
-  console.log('Data:', data, 'repeated:', repeated); 
 });
 
 form.addEventListener('input', saveForm);
