@@ -190,6 +190,15 @@ form.addEventListener('submit', async function (e) {
     second: formData.get('second')
   };
   e.preventDefault();
+
+  const submitBtn = this.querySelector('button[type="submit"]');
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'ОТПРАВЛЯЕТСЯ...'
+  setTimeout(() => {
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'ОТПРАВИТЬ'
+  }, 2000);
+  
   let repeated = 'нет';
   try {
     const res = await fetch(`https://ndb.fut.ru/api/v2/tables/maiff22q0tefj6t/records/count?where=(E-mail,eq,${formData.get('email')})`, {
