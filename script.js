@@ -248,6 +248,28 @@ form.addEventListener('submit', async function (e) {
     console.error(err);
     errorEl.textContent = 'Ошибка сервера. Повтори попытку позже';
     }
+
+  try {
+    const res = await fetch(`https://ndb.fut.ru/api/v2/tables/maiff22q0tefj6t/records/count?where=(tg-id,eq,${window.tgUserId})`, {
+      method: 'GET',
+      headers: {
+        'accept': 'application/json',
+        'xc-token': 'crDte8gB-CSZzNujzSsy9obQRqZYkY3SNp8wre88'
+      }
+    });
+
+    const data_tgid = await res.json();
+    
+    if (data_tgid.count > 0) {
+      repeated = 'да';
+      errorEl.textContent = 'Ты уже зарегистрирован. Свяжись с нами через бота, если это не так или если ты хочешь изменить данные';
+      return;
+    }
+  }
+  catch (err) {
+    console.error(err);
+    errorEl.textContent = 'Ошибка сервера. Повтори попытку позже';
+    }
   
   if (data.city === 'Другой') {data.city = data.city_other};
   if (data.citizen === 'Другое') {data.citizen = data.citizen_other};
