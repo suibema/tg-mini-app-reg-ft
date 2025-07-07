@@ -140,9 +140,24 @@ const questionMappings = [
   ['Account manager', 'textBlock8']
 ];
 
-// event listeners
+const questionMappings2 = [
+  ['Projects', 'textBlock1-2'],
+  ['Research Manager', 'textBlock2-2'],
+  ['Corporate Marketing', 'textBlock3-2'],
+  ['SMM', 'textBlock4-2'],
+  ['Video Editor', 'textBlock5-2'],
+  ['Sales', 'textBlock6-2'],
+  ['University Partnership', 'textBlock7-2'],
+  ['Account manager', 'textBlock8-2']
+];
+
+// text blocks event listeners
 document.getElementById('first').addEventListener('change', () => {
   updateTextBlocks('first', questionMappings);
+});
+
+document.getElementById('second').addEventListener('change', () => {
+  updateTextBlocks('second', questionMappings2);
 });
 
 function getSelectedCheckboxValues(name) {
