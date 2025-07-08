@@ -131,7 +131,7 @@ function updateTextBlocks(dropdownId, mappings) {
 
 const questionMappings = [
   ['Projects', 'textBlock1'],
-  ['Research Manager', 'textBlock2'],
+  ['Research Intern', 'textBlock2'],
   ['Corporate Marketing', 'textBlock3'],
   ['SMM', 'textBlock4'],
   ['Video Editor', 'textBlock5'],
@@ -142,7 +142,7 @@ const questionMappings = [
 
 const questionMappings2 = [
   ['Projects', 'textBlock1-2'],
-  ['Research Manager', 'textBlock2-2'],
+  ['Research Intern', 'textBlock2-2'],
   ['Corporate Marketing', 'textBlock3-2'],
   ['SMM', 'textBlock4-2'],
   ['Video Editor', 'textBlock5-2'],
