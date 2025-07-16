@@ -364,7 +364,7 @@ form.addEventListener('submit', async function (e) {
       )) ||
       (data.second === 'Projects' && (
         data.finished === "2029 и позднее" ||
-        (data.study === "Среднее специальное" && data.finished !== '2026')
+        (data.study === "Среднее специальное" && (data.finished !== '2026' || data.finished !== '2025' || data.finished !== '2027'))
       ))
     ) {
       approved_second = 'отказ';
