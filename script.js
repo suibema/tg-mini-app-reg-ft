@@ -97,14 +97,19 @@ const salesBlocks = ['first_sales', 'second_sales', 'textBlock_sales_special'];
 const uniBlocks = ['first_uni', 'second_uni', 'textBlock_uni_special'];
 const smmBlocks = ['first_smm', 'second_smm', 'textBlock_smm_special'];
 
-  const allBlocks = [...defaultBlocks, ...salesBlocks, ...uniBlocks, ...smmBlocks];
+const allBlocks = [...defaultBlocks, ...salesBlocks, ...uniBlocks, ...smmBlocks];
+
+const isSales = tgUserStartParam.includes('sales_');
+const isUni = tgUserStartParam.includes('uni_');
+const isSMM = tgUserStartParam.includes('smm_');
+  
 
   let visibleBlocks;
-  if (window.tgUserStartParam === 'hh_sales') {
+  if (isSales) {
     visibleBlocks = salesBlocks;
-  } else if (window.tgUserStartParam === 'hh_uni') {
+  } else if (isUni) {
     visibleBlocks = uniBlocks;
-  } else if (window.tgUserStartParam === 'hh_smm') {
+  } else if (isSMM) {
     visibleBlocks = smmBlocks;
   } else {
     visibleBlocks = defaultBlocks;
@@ -483,13 +488,13 @@ form.addEventListener('submit', async function (e) {
       return;
     }
 
-    if (window.tgUserStartParam === 'hh_sales') {
+    if (isSales) {
       data.first = 'Sales';
       data.second = 'Sales';
-    } else if (window.tgUserStartParam === 'hh_uni') {
+    } else if (isUni) {
       data.first = 'University Partnership';
       data.second = 'University Partnership';
-    } else if (window.tgUserStartParam === 'hh_smm') {
+    } else if (isSMM) {
       data.first = 'SMM';
       data.second = 'SMM';
     } else {
