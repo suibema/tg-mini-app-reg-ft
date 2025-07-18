@@ -487,8 +487,8 @@ form.addEventListener('submit', async function (e) {
       data.first = 'Sales';
       data.second = 'Sales';
     } else if (window.tgUserStartParam === 'hh_uni') {
-      data.first = 'University Manager';
-      data.second = 'University Manager';
+      data.first = 'University Partnership';
+      data.second = 'University Partnership';
     } else if (window.tgUserStartParam === 'hh_smm') {
       data.first = 'SMM';
       data.second = 'SMM';
