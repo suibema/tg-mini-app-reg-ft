@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-  const select = document.getElementById('first');
+  const select = document.getElementById('first_default');
   const otherInput = document.getElementById('first_video');
 
   select.addEventListener('change', () => {
@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-  const select = document.getElementById('second');
+  const select = document.getElementById('second_default');
   const otherInput = document.getElementById('second_video');
 
   select.addEventListener('change', () => {
@@ -89,6 +89,34 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
+
+document.addEventListener('DOMContentLoaded', () => {
+
+const defaultBlocks = ['first_default', 'second_default']; 
+const salesBlocks = ['first_sales', 'second_sales', 'textBlock_sales_special'];
+const uniBlocks = ['first_uni', 'second_uni', 'textBlock_uni_special'];
+const smmBlocks = ['first_smm', 'second_smm', 'textBlock_smm_special'];
+
+  const allBlocks = [...defaultBlocks, ...salesBlocks, ...uniBlocks, ...smmBlocks];
+
+  let visibleBlocks;
+  if (window.tgUserStartParam === 'hh_sales') {
+    visibleBlocks = salesBlocks;
+  } else if (window.tgUserStartParam === 'hh_uni') {
+    visibleBlocks = uniBlocks;
+  } else if (window.tgUserStartParam === 'hh_smm') {
+    visibleBlocks = smmBlocks;
+  } else {
+    visibleBlocks = defaultBlocks;
+  }
+
+  allBlocks.forEach(id => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.style.display = visibleBlocks.includes(id) ? 'block' : 'none';
+    }
+  });
+});
 
 const questionNames = ['surname', 'name', 'email', 'phone', 'city', 'city-other', 
   'citizen', 'citizen-other', 'vuz', 'specialty', 'study', 'finished', 
@@ -152,12 +180,12 @@ const questionMappings2 = [
 ];
 
 // text blocks event listeners
-document.getElementById('first').addEventListener('change', () => {
-  updateTextBlocks('first', questionMappings);
+document.getElementById('first_default').addEventListener('change', () => {
+  updateTextBlocks('first_default', questionMappings);
 });
 
-document.getElementById('second').addEventListener('change', () => {
-  updateTextBlocks('second', questionMappings2);
+document.getElementById('second_default').addEventListener('change', () => {
+  updateTextBlocks('second_default', questionMappings2);
 });
 
 function getSelectedCheckboxValues(name) {
@@ -453,6 +481,20 @@ form.addEventListener('submit', async function (e) {
     } catch (err) {
       errorEl.textContent = 'Не удалось загрузить файл: ' + err.message;
       return;
+    }
+
+    if (window.tgUserStartParam === 'hh_sales') {
+      data.first = 'Sales';
+      data.second = 'Sales';
+    } else if (window.tgUserStartParam === 'hh_uni') {
+      data.first = 'University Manager';
+      data.second = 'University Manager';
+    } else if (window.tgUserStartParam === 'hh_smm') {
+      data.first = 'SMM';
+      data.second = 'SMM';
+    } else {
+      data.first = data.first;
+      data.second = data.second;
     }
     
     const res = await fetch('https://ndb.fut.ru/api/v2/tables/maiff22q0tefj6t/records', {
