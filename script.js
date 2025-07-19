@@ -99,17 +99,17 @@ const smmBlocks = ['first_smm', 'second_smm', 'textBlock_smm_special'];
 
 const allBlocks = [...defaultBlocks, ...salesBlocks, ...uniBlocks, ...smmBlocks];
 
-const isSales = tgUserStartParam.includes('sales_');
-const isUni = tgUserStartParam.includes('uni_');
-const isSMM = tgUserStartParam.includes('smm_');
+const window.isSales = tgUserStartParam.includes('sales_');
+const window.isUni = tgUserStartParam.includes('uni_');
+const window.isSMM = tgUserStartParam.includes('smm_');
   
 
   let visibleBlocks;
-  if (isSales) {
+  if (window.isSales) {
     visibleBlocks = salesBlocks;
-  } else if (isUni) {
+  } else if (window.isUni) {
     visibleBlocks = uniBlocks;
-  } else if (isSMM) {
+  } else if (window.isSMM) {
     visibleBlocks = smmBlocks;
   } else {
     visibleBlocks = defaultBlocks;
@@ -488,13 +488,13 @@ form.addEventListener('submit', async function (e) {
       return;
     }
 
-    if (isSales) {
+    if (window.isSales) {
       data.first = 'Sales';
       data.second = 'Sales';
-    } else if (isUni) {
+    } else if (window.isUni) {
       data.first = 'University Partnership';
       data.second = 'University Partnership';
-    } else if (isSMM) {
+    } else if (window.isSMM) {
       data.first = 'SMM';
       data.second = 'SMM';
     } else {
