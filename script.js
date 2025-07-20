@@ -487,20 +487,6 @@ form.addEventListener('submit', async function (e) {
       errorEl.textContent = 'Не удалось загрузить файл: ' + err.message;
       return;
     }
-
-    if (window.isSales) {
-      data.first = 'Sales';
-      data.second = 'Sales';
-    } else if (window.isUni) {
-      data.first = 'University Partnership';
-      data.second = 'University Partnership';
-    } else if (window.isSMM) {
-      data.first = 'SMM';
-      data.second = 'SMM';
-    } else {
-      data.first = data.first;
-      data.second = data.second;
-    }
     
     const res = await fetch('https://ndb.fut.ru/api/v2/tables/maiff22q0tefj6t/records', {
       method: 'POST',
