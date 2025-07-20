@@ -315,6 +315,19 @@ form.addEventListener('submit', async function (e) {
   
   if (data.city === 'Другой') {data.city = data.city_other};
   if (data.citizen === 'Другое') {data.citizen = data.citizen_other};
+  if (window.isSales) {
+    data.first = 'Sales';
+    data.second = 'Sales';
+  } else if (window.isUni) {
+    data.first = 'University Partnership';
+    data.second = 'University Partnership';
+  } else if (window.isSMM) {
+    data.first = 'SMM';
+    data.second = 'SMM';
+  } else {
+    data.first = data.first;
+    data.second = data.second;
+  };
   
   try {
     const aFirstChecked = document.getElementById('first_video-a').checked;
