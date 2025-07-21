@@ -230,7 +230,7 @@ form.addEventListener('submit', async function (e) {
   setTimeout(() => {
     submitBtn.disabled = false;
     submitBtn.textContent = 'ОТПРАВИТЬ'
-  }, 2000);
+  }, 5000);
   
   let repeated = 'нет';
   try {
