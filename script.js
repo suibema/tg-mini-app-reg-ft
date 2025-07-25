@@ -227,10 +227,14 @@ form.addEventListener('submit', async function (e) {
   const submitBtn = this.querySelector('button[type="submit"]');
   submitBtn.disabled = true;
   submitBtn.textContent = 'ОТПРАВЛЯЕТСЯ...'
+  submitBtn.style.backgroundColor = '#ccc';
+  submitBtn.style.color = '#666';
   setTimeout(() => {
     submitBtn.disabled = false;
     submitBtn.textContent = 'ОТПРАВИТЬ'
-  }, 5000);
+    submitBtn.style.backgroundColor = '';
+    submitBtn.style.color = '';
+  }, 9000);
   
   let repeated = 'нет';
   try {
