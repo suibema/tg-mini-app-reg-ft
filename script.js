@@ -112,6 +112,8 @@ window.isSMM = window.tgUserStartParam.includes('smm_');
   } else if (window.isSMM) {
     visibleBlocks = smmBlocks;
   } else {
+    document.getElementById('first_default').setAttribute('required', 'required');
+    document.getElementById('second_default').setAttribute('required', 'required');
     visibleBlocks = defaultBlocks;
   }
 
