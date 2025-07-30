@@ -99,7 +99,7 @@ const smmBlocks = ['first_smm', 'second_smm', 'textBlock_smm_special'];
 
 const allBlocks = [...defaultBlocks, ...salesBlocks, ...uniBlocks, ...smmBlocks];
 
-window.isSales = window.tgUserStartParam.includes('sales_');
+window.isSales = window.tgUserStartParam.includes('sssalesss_');
 window.isUni = window.tgUserStartParam.includes('uni_');
 window.isSMM = window.tgUserStartParam.includes('smm_');
   
