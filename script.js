@@ -99,9 +99,9 @@ const smmBlocks = ['first_smm', 'second_smm', 'textBlock_smm_special'];
 
 const allBlocks = [...defaultBlocks, ...salesBlocks, ...uniBlocks, ...smmBlocks];
 
-window.isSales = window.tgUserStartParam.includes('sssalesss_');
+window.isSales = window.tgUserStartParam.includes('sales_');
 window.isUni = window.tgUserStartParam.includes('uni_');
-window.isSMM = window.tgUserStartParam.includes('smm_');
+window.isSMM = window.tgUserStartParam.includes('sssmmsss_');
   
 
   let visibleBlocks;
