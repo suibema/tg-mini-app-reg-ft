@@ -474,15 +474,15 @@ form.addEventListener('submit', async function (e) {
         if (!Array.isArray(uploadData)) {
             uploadData = [uploadData];
         }
-        
-        if (!uploadData.length || !uploadData[0]?.signedPath) {
+        console.log(uploadData)
+        if (!uploadData.length || !uploadData[0]?.signedUrl) {
             throw new Error("Не удалось получить информацию о файле");
         }
         
         const firstItem = uploadData[0];
         const fileName = firstItem.title || file.name;
-        const fileType = file.type;
-        const fileSize = file.size;
+        const fileType = firstItem.mimetype;
+        const fileSize = firstItem.size;
         
         const getFileIcon = (mimeType) => {
             if (mimeType.includes("pdf")) return "mdi-file-pdf-outline";
@@ -497,7 +497,7 @@ form.addEventListener('submit', async function (e) {
               mimetype: fileType,
               size: fileSize,
               title: fileName,
-              url: `https://ndb.fut.ru/${firstItem.path}`,
+              url: firstItem.url,
               icon: getFileIcon(fileType)
             }
         ];
