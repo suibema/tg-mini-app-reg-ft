@@ -15,8 +15,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const id = getTelegramUserId();
   const startParam = Telegram.WebApp.initDataUnsafe?.start_param;
   console.log("tg-id:", id);
-  window.tgUserId = 'id';
-  window.tgUserStartParam = 'startParam';
+  window.tgUserId = id;
+  window.tgUserStartParam = startParam;
 });
 
 
@@ -331,3 +331,4 @@ form.addEventListener('submit', async function (e) {
 
 form.addEventListener('input', saveForm);
 restoreForm();
+
