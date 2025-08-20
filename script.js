@@ -208,7 +208,8 @@ form.addEventListener('submit', async function (e) {
       (data.study === "Среднее общее (школа)") ||
       (data.citizen != 'РФ') ||
       (data.study != 'Бакалавриат' && data.study != 'Магистратура') ||
-      (data.finished != '2024' && data.finished != '2025' && data.finished != '2026' && data.finished != '2027')
+      (data.finished != '2024' && data.finished != '2025' && data.finished != '2026' && data.finished != '2027') ||
+      (data.has_ed === "Нет")
     ) {
       approved_first = 'отказ';
     }
@@ -331,4 +332,5 @@ form.addEventListener('submit', async function (e) {
 
 form.addEventListener('input', saveForm);
 restoreForm();
+
 
