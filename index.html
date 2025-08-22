@@ -15,10 +15,10 @@
     <input type="text" required name="surname" id="surname"/>
 
     <label>Имя</label>
-    <input type="text" name="name" id="name"/>
+    <input type="text" required name="name" id="name"/>
 
     <label>E-mail</label>
-    <input type="text" name="email" id="email" placeholder="your@email.com" />
+    <input type="text" required name="email" id="email" placeholder="your@email.com" />
     
     <label>Телефон</label>
     <input type="text" name="phone" placeholder="7XXXXXXXXXX" id="phone"/>
@@ -44,7 +44,7 @@
   <input type="text" name="city-other" id="city-other" placeholder="Напиши свой город" style="display: none;">
   
   <label>Гражданство</label>
-  <select name="citizen" id="citizen">
+  <select name="citizen" required id="citizen">
     <option value="">- выбрать -</option>
     <option value="РФ">РФ</option>
     <option value="Беларусь">Беларусь</option>
@@ -57,13 +57,13 @@
   <input type="text" name="citizen-other" id="citizen-other" placeholder="Напиши свое гражданство" style="display: none;">
 
   <label>В каком учебном заведении ты обучаешься или закончил?</label>
-  <input type="text" name="vuz" id="vuz"/>
+  <input type="text" required name="vuz" id="vuz"/>
   
   <label>Специальность</label>
-  <input type="text" name="specialty" id="specialty"/>
+  <input type="text" required name="specialty" id="specialty"/>
   
   <label>Степень обучения</label>
-  <select name="study">
+  <select required name="study">
     <option value="">- выбрать -</option>
     <option value="Бакалавриат">Бакалавриат</option>
     <option value="Специалитет">Специалитет</option>
@@ -74,7 +74,7 @@
   </select>
   
   <label>Год окончания ВУЗа</label>
-  <select name="finished">
+  <select required name="finished">
     <option value="">- выбрать -</option>
     <option value="2022 и ранее">2022 и ранее</option>
     <option value="2023">2023</option>
@@ -87,7 +87,7 @@
   </select>
   
   <label>График (часы) работы</label>
-  <select name="hours">
+  <select required name="hours">
     <option value="">- выбрать -</option>
     <option value="Менее 20 часов">Менее 20 часов</option>
     <option value="20 часов и более">20 часов и более</option>
@@ -96,7 +96,7 @@
   </select>
 
   <label>Есть ли у тебя юридическое образование?</label>
-  <select name="has_ed">
+  <select required name="has_ed">
     <option value="">- выбрать -</option>
     <option value="Да">Да</option>
     <option value="Нет">Нет</option>
@@ -114,4 +114,5 @@
   <script src="script.js"></script>
 </body>
 </html>
+
 
