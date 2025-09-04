@@ -49,6 +49,34 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
+  const select = document.getElementById('first_default');
+  const otherInput = document.getElementById('first_video');
+
+  select.addEventListener('change', () => {
+    if (select.value === 'Video Editor') {
+      otherInput.style.display = 'block';
+    } else {
+      otherInput.style.display = 'none';
+      otherInput.value = ''; // Clear the input when hiding
+    }
+  });
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  const select = document.getElementById('second_default');
+  const otherInput = document.getElementById('second_video');
+
+  select.addEventListener('change', () => {
+    if (select.value === 'Video Editor') {
+      otherInput.style.display = 'block';
+    } else {
+      otherInput.style.display = 'none';
+      otherInput.value = ''; // Clear the input when hiding
+    }
+  });
+});
+
+document.addEventListener('DOMContentLoaded', () => {
     const select = document.getElementById('foreign_phone_yes');
     const otherInput = document.getElementById('foreign_phone_type');
   
@@ -62,9 +90,44 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+document.addEventListener('DOMContentLoaded', () => {
+
+const defaultBlocks = ['first_default', 'second_default']; 
+const salesBlocks = ['first_sales', 'second_sales', 'textBlock_sales_special'];
+const uniBlocks = ['first_uni', 'second_uni', 'textBlock_uni_special'];
+const smmBlocks = ['first_smm', 'second_smm', 'textBlock_smm_special'];
+
+const allBlocks = [...defaultBlocks, ...salesBlocks, ...uniBlocks, ...smmBlocks];
+
+window.isSales = window.tgUserStartParam.includes('sales_');
+window.isUni = window.tgUserStartParam.includes('uni_');
+window.isSMM = window.tgUserStartParam.includes('sssmmsss_');
+  
+
+  let visibleBlocks;
+  if (window.isSales) {
+    visibleBlocks = salesBlocks;
+  } else if (window.isUni) {
+    visibleBlocks = uniBlocks;
+  } else if (window.isSMM) {
+    visibleBlocks = smmBlocks;
+  } else {
+    document.getElementById('first_default').setAttribute('required', 'required');
+    document.getElementById('second_default').setAttribute('required', 'required');
+    visibleBlocks = defaultBlocks;
+  }
+
+  allBlocks.forEach(id => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.style.display = visibleBlocks.includes(id) ? 'block' : 'none';
+    }
+  });
+});
+
 const questionNames = ['surname', 'name', 'email', 'phone', 'city', 'city-other', 
   'citizen', 'citizen-other', 'vuz', 'specialty', 'study', 'finished', 
-  'hours',];
+  'hours', 'first', 'second'];
 function saveForm() {
   const formData = new FormData(form);
   const data = {};
@@ -82,11 +145,68 @@ function restoreForm() {
   });
 }
 
+// Function to show text blocks based on dropdown selection
+function updateTextBlocks(dropdownId, mappings) {
+  const dropdown = document.getElementById(dropdownId);
+  const selectedValue = dropdown.value;
+  
+  // Hide all mapped text blocks
+  mappings.forEach(([_, textBlockId]) => {
+    const block = document.getElementById(textBlockId);
+    if (block) block.style.display = 'none';
+  });
+
+  // Show the matching text block if it exists
+  const textBlockId = mappings.find(([optionValue]) => optionValue === selectedValue)?.[1];
+  if (textBlockId) {
+    const block = document.getElementById(textBlockId);
+    if (block) block.style.display = 'block';
+  }
+}
+
+const questionMappings = [
+  ['Projects', 'textBlock1'],
+  ['Research Intern', 'textBlock2'],
+  ['Corporate Marketing', 'textBlock3'],
+  ['SMM', 'textBlock4'],
+  ['Video Editor', 'textBlock5'],
+  ['Sales', 'textBlock6'],
+  ['University Partnership', 'textBlock7'],
+  ['Account manager', 'textBlock8']
+];
+
+const questionMappings2 = [
+  ['Projects', 'textBlock1-2'],
+  ['Research Intern', 'textBlock2-2'],
+  ['Corporate Marketing', 'textBlock3-2'],
+  ['SMM', 'textBlock4-2'],
+  ['Video Editor', 'textBlock5-2'],
+  ['Sales', 'textBlock6-2'],
+  ['University Partnership', 'textBlock7-2'],
+  ['Account manager', 'textBlock8-2']
+];
+
+// text blocks event listeners
+document.getElementById('first_default').addEventListener('change', () => {
+  updateTextBlocks('first_default', questionMappings);
+});
+
+document.getElementById('second_default').addEventListener('change', () => {
+  updateTextBlocks('second_default', questionMappings2);
+});
+
+function getSelectedCheckboxValues(name) {
+  const checkboxes = document.querySelectorAll(`input[name="${name}"]:checked`);
+  return Array.from(checkboxes).map(cb => cb.value);
+}
+
 form.addEventListener('submit', async function (e) {
   const fileInput = document.getElementById("fileInput");
   const file = fileInput.files[0];
   const formData = new FormData(form);
   const errorEl = document.getElementById('reg-error');
+  const selectedFirstVideoValues = getSelectedCheckboxValues("first_video");
+  const selectedSecondVideoValues = getSelectedCheckboxValues("second_video");
   const data = {
     surname: formData.get('surname'),
     name: formData.get('name'),
@@ -101,7 +221,8 @@ form.addEventListener('submit', async function (e) {
     study: formData.get('study'),
     finished: formData.get('finished'),
     hours: formData.get('hours'),
-    has_ed: formData.get('has_ed')
+    first: formData.get('first'),
+    second: formData.get('second')
   };
   e.preventDefault();
 
@@ -119,7 +240,7 @@ form.addEventListener('submit', async function (e) {
   
   let repeated = 'нет';
   try {
-    const res = await fetch(`https://ndb.fut.ru/api/v2/tables/m2zenv52yinuxda/records/count?where=(E-mail,eq,${formData.get('email')})`, {
+    const res = await fetch(`https://ndb.fut.ru/api/v2/tables/moqj9txmglwy87u/records/count?where=(E-mail,eq,${formData.get('email')})`, {
       method: 'GET',
       headers: {
         'accept': 'application/json',
@@ -155,7 +276,7 @@ form.addEventListener('submit', async function (e) {
     errorEl.textContent = 'Please enter a valid email (e.g., user@domain.com)';
     return;
     }
-    const res = await fetch(`https://ndb.fut.ru/api/v2/tables/m2zenv52yinuxda/records/count?where=(Номер телефона,eq,${data.phone})`, {
+    const res = await fetch(`https://ndb.fut.ru/api/v2/tables/moqj9txmglwy87u/records/count?where=(Номер телефона,eq,${data.phone})`, {
       method: 'GET',
       headers: {
         'accept': 'application/json',
@@ -177,7 +298,7 @@ form.addEventListener('submit', async function (e) {
     }
 
   try {
-    const res = await fetch(`https://ndb.fut.ru/api/v2/tables/m2zenv52yinuxda/records/count?where=(tg-id,eq,${window.tgUserId})`, {
+    const res = await fetch(`https://ndb.fut.ru/api/v2/tables/moqj9txmglwy87u/records/count?where=(tg-id,eq,${window.tgUserId})`, {
       method: 'GET',
       headers: {
         'accept': 'application/json',
@@ -200,18 +321,67 @@ form.addEventListener('submit', async function (e) {
   
   if (data.city === 'Другой') {data.city = data.city_other};
   if (data.citizen === 'Другое') {data.citizen = data.citizen_other};
+  if (window.isSales) {
+    data.first = 'Sales';
+    data.second = 'Sales';
+  } else if (window.isUni) {
+    data.first = 'University Partnership';
+    data.second = 'University Partnership';
+  } else if (window.isSMM) {
+    data.first = 'SMM';
+    data.second = 'SMM';
+  } else {
+    data.first = data.first;
+    data.second = data.second;
+  };
   
   try {
+    const aFirstChecked = document.getElementById('first_video-a').checked;
+    const bFirstChecked = document.getElementById('first_video-b').checked;
+    const aSecondChecked = document.getElementById('second_video-a').checked;
+    const bSecondChecked = document.getElementById('second_video-b').checked;
     let approved_first = 'ок';
+  // Multi-cascade conditions for rejection
     if (
       (data.hours === 'Менее 20 часов') ||
       (data.study === "Среднее общее (школа)") ||
-      (data.citizen != 'РФ') ||
-      (data.study != 'Бакалавриат' && data.study != 'Магистратура' && data.study != 'Специалитет') ||
-      (data.finished != '2024' && data.finished != '2025' && data.finished != '2026' && data.finished != '2027') ||
-      (data.has_ed === "Нет")
+      (data.second === 'Account manager' && (
+        data.finished === "2029 и позднее" ||
+        (data.study === "Магистратура" && (data.finished === "2022 и ранее" || data.finished === "2028")) ||
+        (data.study === "Аспирантура" && (data.finished !== "2026" && data.finished !== "2027" && data.finished !== "2028")) ||
+        (data.study === "Среднее специальное" && (data.finished !== "2024" && data.finished !== "2025" && data.finished !== "2026")) ||
+        (data.hours === "20 часов и более")
+      )) ||
+      (data.second === 'Projects' && (
+        data.finished === "2029 и позднее" ||
+        (data.study === "Среднее специальное" && (data.finished !== '2026' || data.finished !== '2025' || data.finished !== '2027'))
+      ))
     ) {
       approved_first = 'отказ';
+    }
+
+    let approved_second = 'ок';
+  // Multi-cascade conditions for rejection
+    if (
+      (data.hours === 'Менее 20 часов') ||
+      (data.study === "Среднее общее (школа)") ||
+      (data.second === 'Account manager' && (
+        data.finished === "2029 и позднее" ||
+        (data.study === "Магистратура" && (data.finished === "2022 и ранее" || data.finished === "2028")) ||
+        (data.study === "Аспирантура" && (data.finished !== "2026" && data.finished !== "2027" && data.finished !== "2028")) ||
+        (data.study === "Среднее специальное" && (data.finished !== "2024" && data.finished !== "2025" && data.finished !== "2026")) ||
+        (data.hours === "20 часов и более")
+      )) ||
+      (data.second === 'Projects' && (
+        data.finished === "2029 и позднее" ||
+        (data.study === "Среднее специальное" && (data.finished !== '2026' || data.finished !== '2025' || data.finished !== '2027'))
+      ))
+    ) {
+      approved_second = 'отказ';
+    }
+
+    if (selectedSecondVideoValues || selectedFirstVideoValues) {
+      window.selectedVideoValues = [...new Set([...selectedFirstVideoValues, ...selectedSecondVideoValues])]
     }
 
     function validateFile(file) {
@@ -295,7 +465,7 @@ form.addEventListener('submit', async function (e) {
       return;
     }
     
-    const res = await fetch('https://ndb.fut.ru/api/v2/tables/m2zenv52yinuxda/records', {
+    const res = await fetch('https://ndb.fut.ru/api/v2/tables/moqj9txmglwy87u/records', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -312,13 +482,15 @@ form.addEventListener('submit', async function (e) {
         "Степень образования": data.study,
         "Год выпуска": data.finished,
         "График (часы)": data.hours,
+        "Направление 1 приоритета": data.first,
+        "Направление 2 приоритета": data.second,
         "Гражданство": data.citizen,
         "Город": data.city,
-        "Скрининг итог": approved_first,
+        "Скрининг итог (первый)": approved_first,
+        "Скрининг итог (второй)": approved_second,
         "tg-id": window.tgUserId,
         "start-param": window.tgUserStartParam,
-        "Резюме": attachmentData,
-        "Юридическое образование": data.has_ed
+        "Резюме": attachmentData
       })
     }
     )
@@ -332,6 +504,3 @@ form.addEventListener('submit', async function (e) {
 
 form.addEventListener('input', saveForm);
 restoreForm();
-
-
-
