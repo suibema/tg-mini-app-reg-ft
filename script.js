@@ -345,7 +345,7 @@ form.addEventListener('submit', async function (e) {
     let approved_first = 'ок';
   // Multi-cascade conditions for rejection
     if (
-      (data.hours === 'Менее 20 часов') ||
+      (data.hours === 'Менее 20 часов' || data.hours === '20 часов и более') ||
       (data.study === "Среднее общее (школа)") ||
       (data.second === 'Account manager' && (
         data.finished === "2029 и позднее" ||
@@ -370,7 +370,7 @@ form.addEventListener('submit', async function (e) {
     let approved_second = 'ок';
   // Multi-cascade conditions for rejection
     if (
-      (data.hours === 'Менее 20 часов') ||
+      (data.hours === 'Менее 20 часов' || data.hours === '20 часов и более') ||
       (data.study === "Среднее общее (школа)") ||
       (data.second === 'Account manager' && (
         data.finished === "2029 и позднее" ||
@@ -517,5 +517,6 @@ form.addEventListener('submit', async function (e) {
 
 form.addEventListener('input', saveForm);
 restoreForm();
+
 
 
