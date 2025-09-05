@@ -357,6 +357,11 @@ form.addEventListener('submit', async function (e) {
       (data.second === 'Projects' && (
         data.finished === "2029 и позднее" ||
         (data.study === "Среднее специальное" && (data.finished !== '2026' || data.finished !== '2025' || data.finished !== '2027'))
+      )) ||
+      (data.second === 'Video Editor' && (
+        data.finished === "2029 и позднее" ||
+        (data.study === "Среднее специальное" && data.finished !== '2026') ||
+        (!aSecondChecked || !bSecondChecked)
       ))
     ) {
       approved_first = 'отказ';
@@ -377,7 +382,12 @@ form.addEventListener('submit', async function (e) {
       (data.second === 'Projects' && (
         data.finished === "2029 и позднее" ||
         (data.study === "Среднее специальное" && (data.finished !== '2026' || data.finished !== '2025' || data.finished !== '2027'))
-      ))
+      )) ||
+      (data.second === 'Video Editor' && (
+        data.finished === "2029 и позднее" ||
+        (data.study === "Среднее специальное" && data.finished !== '2026') ||
+        (!aSecondChecked || !bSecondChecked)
+      )) 
     ) {
       approved_second = 'отказ';
     }
@@ -492,6 +502,7 @@ form.addEventListener('submit', async function (e) {
         "Скрининг итог (второй)": approved_second,
         "tg-id": window.tgUserId,
         "start-param": window.tgUserStartParam,
+        "Инструменты Video Editor": window.selectedVideoValues.join(', '),
         "Резюме": attachmentData
       })
     }
@@ -506,4 +517,5 @@ form.addEventListener('submit', async function (e) {
 
 form.addEventListener('input', saveForm);
 restoreForm();
+
 
