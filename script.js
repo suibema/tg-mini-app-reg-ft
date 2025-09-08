@@ -1,5 +1,3 @@
-window.location.href = 'block.html'
-
 const form = document.getElementById('reg-form');
 
 function getTelegramUserId() {
@@ -517,6 +515,7 @@ form.addEventListener('submit', async function (e) {
 
 form.addEventListener('input', saveForm);
 restoreForm();
+
 
 
 
