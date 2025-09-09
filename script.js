@@ -321,19 +321,6 @@ form.addEventListener('submit', async function (e) {
   
   if (data.city === 'Другой') {data.city = data.city_other};
   if (data.citizen === 'Другое') {data.citizen = data.citizen_other};
-  if (window.isSales) {
-    data.first = 'Sales';
-    data.second = 'Sales';
-  } else if (window.isUni) {
-    data.first = 'University Partnership';
-    data.second = 'University Partnership';
-  } else if (window.isSMM) {
-    data.first = 'SMM';
-    data.second = 'SMM';
-  } else {
-    data.first = data.first;
-    data.second = data.second;
-  };
   
   try {
     const aFirstChecked = document.getElementById('first_video-a').checked;
@@ -349,8 +336,7 @@ form.addEventListener('submit', async function (e) {
         data.finished === "2029 и позднее" ||
         (data.study === "Магистратура" && (data.finished === "2022 и ранее" || data.finished === "2028")) ||
         (data.study === "Аспирантура" && (data.finished !== "2026" && data.finished !== "2027" && data.finished !== "2028")) ||
-        (data.study === "Среднее специальное" && (data.finished !== "2024" && data.finished !== "2025" && data.finished !== "2026")) ||
-        (data.hours === "20 часов и более")
+        (data.study === "Среднее специальное" && (data.finished !== "2024" && data.finished !== "2025" && data.finished !== "2026"))
       )) ||
       (data.second === 'Projects' && (
         data.finished === "2029 и позднее" ||
@@ -515,6 +501,7 @@ form.addEventListener('submit', async function (e) {
 
 form.addEventListener('input', saveForm);
 restoreForm();
+
 
 
 
