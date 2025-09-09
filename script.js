@@ -332,17 +332,17 @@ form.addEventListener('submit', async function (e) {
     if (
       (data.hours === 'Менее 20 часов' || data.hours === '20 часов и более') ||
       (data.study === "Среднее общее (школа)") ||
-      (data.second === 'Account manager' && (
+      (data.first === 'Account manager' && (
         data.finished === "2029 и позднее" ||
         (data.study === "Магистратура" && (data.finished === "2022 и ранее" || data.finished === "2028")) ||
         (data.study === "Аспирантура" && (data.finished !== "2026" && data.finished !== "2027" && data.finished !== "2028")) ||
         (data.study === "Среднее специальное" && (data.finished !== "2024" && data.finished !== "2025" && data.finished !== "2026"))
       )) ||
-      (data.second === 'Projects' && (
+      (data.first === 'Projects' && (
         data.finished === "2029 и позднее" ||
         (data.study === "Среднее специальное" && (data.finished !== '2026' || data.finished !== '2025' || data.finished !== '2027'))
       )) ||
-      (data.second === 'Video Editor' && (
+      (data.first === 'Video Editor' && (
         data.finished === "2029 и позднее" ||
         (data.study === "Среднее специальное" && data.finished !== '2026') ||
         (!aSecondChecked || !bSecondChecked)
@@ -501,6 +501,7 @@ form.addEventListener('submit', async function (e) {
 
 form.addEventListener('input', saveForm);
 restoreForm();
+
 
 
 
