@@ -345,7 +345,7 @@ form.addEventListener('submit', async function (e) {
       (data.first === 'Video Editor' && (
         data.finished === "2029 и позднее" ||
         (data.study === "Среднее специальное" && data.finished !== '2026') ||
-        (!aSecondChecked || !bSecondChecked)
+        (!aFirstChecked || !bFirstChecked)
       ))
     ) {
       approved_first = 'отказ';
@@ -501,6 +501,7 @@ form.addEventListener('submit', async function (e) {
 
 form.addEventListener('input', saveForm);
 restoreForm();
+
 
 
 
