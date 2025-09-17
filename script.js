@@ -172,7 +172,8 @@ const questionMappings = [
   ['Video Editor', 'textBlock5'],
   ['Sales', 'textBlock6'],
   ['University Partnership', 'textBlock7'],
-  ['Account manager', 'textBlock8']
+  ['Account manager', 'textBlock8'],
+  ['Creator', 'textBlock9']
 ];
 
 const questionMappings2 = [
@@ -183,7 +184,8 @@ const questionMappings2 = [
   ['Video Editor', 'textBlock5-2'],
   ['Sales', 'textBlock6-2'],
   ['University Partnership', 'textBlock7-2'],
-  ['Account manager', 'textBlock8-2']
+  ['Account manager', 'textBlock8-2'],
+  ['Creator', 'textBlock9-2']
 ];
 
 // text blocks event listeners
@@ -499,6 +501,7 @@ form.addEventListener('submit', async function (e) {
 
 form.addEventListener('input', saveForm);
 restoreForm();
+
 
 
 
