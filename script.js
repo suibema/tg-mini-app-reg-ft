@@ -349,6 +349,10 @@ form.addEventListener('submit', async function (e) {
       (data.first === 'Video Editor' && (
         data.finished === "2029 и позднее" ||
         (data.study === "Среднее специальное" && data.finished !== '2026')
+      )) ||
+      (data.first === 'Research' && (
+        (data.finished !== "2025" && data.finished !== "2026" && data.finished !== "2027") ||
+        (data.study === "Среднее специальное" && data.finished !== '2026')
       ))
     ) {
       approved_first = 'отказ';
@@ -373,7 +377,11 @@ form.addEventListener('submit', async function (e) {
       (data.second === 'Video Editor' && (
         data.finished === "2029 и позднее" ||
         (data.study === "Среднее специальное" && data.finished !== '2026')
-      )) 
+      ))  ||
+      (data.second === 'Research' && (
+        (data.finished !== "2025" && data.finished !== "2026" && data.finished !== "2027") ||
+        (data.study === "Среднее специальное" && data.finished !== '2026')
+      ))
     ) {
       approved_second = 'отказ';
     }
@@ -503,6 +511,7 @@ form.addEventListener('submit', async function (e) {
 
 form.addEventListener('input', saveForm);
 restoreForm();
+
 
 
 
