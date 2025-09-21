@@ -14,7 +14,6 @@ document.addEventListener("DOMContentLoaded", () => {
   Telegram.WebApp.ready();
   const id = getTelegramUserId();
   const startParam = Telegram.WebApp.initDataUnsafe?.start_param;
-  console.log("tg-id:", id);
   window.tgUserId = id;
   window.tgUserStartParam = startParam;
 });
@@ -93,24 +92,16 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('DOMContentLoaded', () => {
 
 const defaultBlocks = ['first_default', 'second_default']; 
-const salesBlocks = ['first_sales', 'second_sales', 'textBlock_sales_special'];
-const uniBlocks = ['first_uni', 'second_uni', 'textBlock_uni_special'];
-const smmBlocks = ['first_smm', 'second_smm', 'textBlock_smm_special'];
+const videoBlocks = ['first_video_choice', 'first_video', 'second_video_choice']
 
-const allBlocks = [...defaultBlocks, ...salesBlocks, ...uniBlocks, ...smmBlocks];
+const allBlocks = [...defaultBlocks, ...videoBlocks];
 
-window.isSales = window.tgUserStartParam.includes('sales_');
-window.isUni = window.tgUserStartParam.includes('uni_');
-window.isSMM = window.tgUserStartParam.includes('sssmmsss_');
+window.isVideo = window.tgUserStartParam.includes('video');
   
 
   let visibleBlocks;
-  if (window.isSales) {
-    visibleBlocks = salesBlocks;
-  } else if (window.isUni) {
-    visibleBlocks = uniBlocks;
-  } else if (window.isSMM) {
-    visibleBlocks = smmBlocks;
+  if (window.isVideo) {
+    visibleBlocks = videoBlocks;
   } else {
     document.getElementById('first_default').setAttribute('required', 'required');
     document.getElementById('second_default').setAttribute('required', 'required');
@@ -325,6 +316,13 @@ form.addEventListener('submit', async function (e) {
   
   if (data.city === 'Другой') {data.city = data.city_other};
   if (data.citizen === 'Другое') {data.citizen = data.citizen_other};
+  if (window.isVideo) {
+    data.first = 'Video Editor';
+    data.second = 'Video Editor';
+  } else {
+    data.first = data.first;
+    data.second = data.second;
+  };
   
   try {
     const aFirstChecked = document.getElementById('first_video-a').checked;
@@ -511,15 +509,3 @@ form.addEventListener('submit', async function (e) {
 
 form.addEventListener('input', saveForm);
 restoreForm();
-
-
-
-
-
-
-
-
-
-
-
-
