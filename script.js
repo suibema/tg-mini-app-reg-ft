@@ -327,8 +327,6 @@ form.addEventListener('submit', async function (e) {
   try {
     const aFirstChecked = document.getElementById('first_video-a').checked;
     const bFirstChecked = document.getElementById('first_video-b').checked;
-    const aSecondChecked = document.getElementById('second_video-a').checked;
-    const bSecondChecked = document.getElementById('second_video-b').checked;
     let approved_first = 'ок';
   // Multi-cascade conditions for rejection
     if (
@@ -509,3 +507,4 @@ form.addEventListener('submit', async function (e) {
 
 form.addEventListener('input', saveForm);
 restoreForm();
+
