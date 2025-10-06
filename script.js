@@ -201,7 +201,6 @@ form.addEventListener('submit', async function (e) {
   const formData = new FormData(form);
   const errorEl = document.getElementById('reg-error');
   const selectedFirstVideoValues = getSelectedCheckboxValues("first_video");
-  const selectedSecondVideoValues = getSelectedCheckboxValues("second_video");
   const data = {
     surname: formData.get('surname'),
     name: formData.get('name'),
@@ -382,8 +381,8 @@ form.addEventListener('submit', async function (e) {
       approved_second = 'отказ';
     }
 
-    if (selectedSecondVideoValues || selectedFirstVideoValues) {
-      window.selectedVideoValues = [...new Set([...selectedFirstVideoValues, ...selectedSecondVideoValues])]
+    if ('' || selectedFirstVideoValues) {
+      window.selectedVideoValues = [...new Set([...selectedFirstVideoValues])]
     }
 
     function validateFile(file) {
@@ -507,4 +506,5 @@ form.addEventListener('submit', async function (e) {
 
 form.addEventListener('input', saveForm);
 restoreForm();
+
 
