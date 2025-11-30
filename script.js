@@ -249,12 +249,12 @@ form.addEventListener('submit', async function (e) {
     if (foreign_phone) {
       data.phone = foreign_phone; // Replace data.phone with foreign_phone value
     } else if (!/^[7]\d{10}$/.test(phone_check)) {
-      errorEl.textContent = 'Phone must be 11 characters, format: 7XXXXXXXXXX';
+      errorEl.textContent = 'Телефон должен состоять из 11 цифр, формат: 7XXXXXXXXXX';
       return;
     }
     // data.phone is set to foreign_phone if it exists, or validated phone_check if not
     if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(data.email)) {
-    errorEl.textContent = 'Please enter a valid email (e.g., user@domain.com)';
+    errorEl.textContent = 'Введи корректный e-mail (user@domain.com)';
     return;
     }
     const res = await fetch(`https://ndb.fut.ru/api/v2/tables/moqj9txmglwy87u/records/count?where=(Номер телефона,eq,${data.phone})`, {
@@ -576,3 +576,4 @@ form.addEventListener('submit', async function (e) {
 
 form.addEventListener('input', saveForm);
 restoreForm();
+
