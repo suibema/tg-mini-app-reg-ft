@@ -221,7 +221,7 @@ form.addEventListener('submit', async function (e) {
   
   let repeated = 'нет';
   try {
-    const res = await fetch(`https://ndb.fut.ru/api/v2/tables/moqj9txmglwy87u/records/count?where=(E-mail,eq,${formData.get('email')})`, {
+    const res = await fetch(`https://ndb.fut.ru/api/v2/tables/m6tyxd3346dlhco/records/count?where=(E-mail,eq,${formData.get('email')})`, {
       method: 'GET',
       headers: {
         'accept': 'application/json',
@@ -257,7 +257,7 @@ form.addEventListener('submit', async function (e) {
     errorEl.textContent = 'Введи корректный e-mail (user@domain.com)';
     return;
     }
-    const res = await fetch(`https://ndb.fut.ru/api/v2/tables/moqj9txmglwy87u/records/count?where=(Номер телефона,eq,${data.phone})`, {
+    const res = await fetch(`https://ndb.fut.ru/api/v2/tables/m6tyxd3346dlhco/records/count?where=(Номер телефона,eq,${data.phone})`, {
       method: 'GET',
       headers: {
         'accept': 'application/json',
@@ -279,7 +279,7 @@ form.addEventListener('submit', async function (e) {
     }
 
   try {
-    const res = await fetch(`https://ndb.fut.ru/api/v2/tables/moqj9txmglwy87u/records/count?where=(tg-id,eq,${window.tgUserId})`, {
+    const res = await fetch(`https://ndb.fut.ru/api/v2/tables/m6tyxd3346dlhco/records/count?where=(tg-id,eq,${window.tgUserId})`, {
       method: 'GET',
       headers: {
         'accept': 'application/json',
@@ -538,7 +538,7 @@ form.addEventListener('submit', async function (e) {
     approved_second = 'отказ';
   }
     
-    const res = await fetch('https://ndb.fut.ru/api/v2/tables/moqj9txmglwy87u/records', {
+    const res = await fetch('https://ndb.fut.ru/api/v2/tables/m6tyxd3346dlhco/records', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -576,4 +576,5 @@ form.addEventListener('submit', async function (e) {
 
 form.addEventListener('input', saveForm);
 restoreForm();
+
 
