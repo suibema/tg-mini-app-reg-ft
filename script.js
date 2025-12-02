@@ -66,6 +66,15 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+document.addEventListener("DOMContentLoaded", () => {
+  const toggle = document.getElementById("policy_toggle");
+  const block = document.getElementById("policy_text_block");
+
+  toggle.addEventListener("click", () => {
+    block.style.display = block.style.display === "none" ? "block" : "none";
+  });
+});
+
 
 const questionNames = ['surname', 'name', 'email', 'phone', 'city', 'city-other', 
   'citizen', 'citizen-other', 'vuz', 'specialty', 'study', 'finished', 
@@ -203,7 +212,8 @@ form.addEventListener('submit', async function (e) {
     finished: formData.get('finished'),
     hours: formData.get('hours'),
     first: formData.get('first'),
-    second: formData.get('second')
+    second: formData.get('second'),
+    previous: formData.get('previous')
   };
   e.preventDefault();
 
@@ -562,7 +572,8 @@ form.addEventListener('submit', async function (e) {
         "Скрининг итог (первый)": approved_first,
         "Скрининг итог (второй)": approved_second,
         "tg-id": window.tgUserId,
-        "start-param": window.tgUserStartParam
+        "start-param": window.tgUserStartParam,
+        "Прошлый отбор": data.previous
       })
     }
     )
@@ -576,6 +587,7 @@ form.addEventListener('submit', async function (e) {
 
 form.addEventListener('input', saveForm);
 restoreForm();
+
 
 
 
