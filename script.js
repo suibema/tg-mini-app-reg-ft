@@ -146,7 +146,7 @@ function configureFirstByStartParam() {
   const startParam = (window.tgUserStartParam || '').toLowerCase();
 
 const mapping = [
-    { keyword: 'projects', value: ['Projects', 'Survey'] },
+    { keyword: 'projects', value: ['Projects', 'Survey', 'Accounts'] },
     { keyword: 'survey', value: ['Survey'] },
     { keyword: 'its',  value: ['Innovation', 'SMM в IT']},
     { keyword: 'smm',  value: ['SMM', 'SMM в IT']},
@@ -587,6 +587,7 @@ form.addEventListener('submit', async function (e) {
 
 form.addEventListener('input', saveForm);
 restoreForm();
+
 
 
 
