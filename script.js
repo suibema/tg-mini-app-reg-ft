@@ -145,15 +145,15 @@ function configureFirstByStartParam() {
 
   const startParam = (window.tgUserStartParam || '').toLowerCase();
 
-  const mapping = [
+const mapping = [
     { keyword: 'projects', value: ['Projects', 'Survey'] },
     { keyword: 'survey', value: ['Survey'] },
-    { keyword: 'innovation',  value: ['Innovation', 'SMM в IT']},
-    { keyword: 'gen_smm',  value: ['SMM', 'SMM в IT']},
-    { keyword: 'it_smm',  value: ['SMM в IT']},
-    { keyword: 'com_marketing',  value: ['Community marketing']},
-    { keyword: 'dig_marketing',  value: ['Digital marketing']},
-    { keyword: 'accounts',  value: ['Accounts']}
+    { keyword: 'its',  value: ['Innovation', 'SMM в IT']},
+    { keyword: 'smm',  value: ['SMM', 'SMM в IT']},
+    { keyword: 'itsmm',  value: ['SMM в IT']},
+    { keyword: 'community',  value: ['Community marketing']},
+    { keyword: 'digital',  value: ['Digital marketing']},
+    { keyword: 'account',  value: ['Accounts']}
   ];
 
   const matched = mapping.find(m => startParam.includes(m.keyword));
@@ -587,6 +587,7 @@ form.addEventListener('submit', async function (e) {
 
 form.addEventListener('input', saveForm);
 restoreForm();
+
 
 
 
