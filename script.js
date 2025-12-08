@@ -148,11 +148,8 @@ function configureFirstByStartParam() {
 const mapping = [
     { keyword: 'projects', value: ['Projects', 'Survey', 'Accounts'] },
     { keyword: 'survey', value: ['Survey'] },
-    { keyword: 'its',  value: ['Innovation', 'SMM в IT']},
     { keyword: 'smm',  value: ['SMM', 'SMM в IT']},
     { keyword: 'itsmm',  value: ['SMM в IT']},
-    { keyword: 'community',  value: ['Community marketing']},
-    { keyword: 'digital',  value: ['Digital marketing']},
     { keyword: 'account',  value: ['Accounts']}
   ];
 
@@ -587,6 +584,7 @@ form.addEventListener('submit', async function (e) {
 
 form.addEventListener('input', saveForm);
 restoreForm();
+
 
 
 
