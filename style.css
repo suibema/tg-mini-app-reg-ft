@@ -326,3 +326,28 @@ img {
   font-size: 14px;
   line-height: 1.4;
 }
+
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin: 0 auto;
+}
+
+.header img {
+  height: 40px;
+  width: auto;
+  display: block;
+}
+
+.left-logo {
+  margin-right: auto;
+}
+
+.right-logo {
+  margin-left: auto;
+  transform: scaleY(-1);
+  transform: scaleX(-1);
+}
+
