@@ -1,5 +1,49 @@
 const form = document.getElementById('reg-form');
 
+const NOCODB_PROXY_URL = "https://functions.yandexcloud.net/d4ehqsefdge11t9rvfjh";
+
+async function nocodbRequest(method, endpoint, body = null) {
+  const res = await fetch(NOCODB_PROXY_URL, {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ method, endpoint, body })
+  });
+
+  const data = await res.json().catch(() => null);
+  if (!res.ok) {
+    throw new Error(data?.error || data?.message || `HTTP ${res.status}`);
+  }
+  return data;
+}
+
+async function nocodbUpload(file, path = "solutions") {
+  const fd = new FormData();
+  fd.append("file", file);
+  fd.append("path", path);
+
+  const res = await fetch(NOCODB_PROXY_URL, {
+    method: "POST",
+    headers: {
+      "x-noco-method": "POST",
+      "x-noco-endpoint": "/api/v2/storage/upload"
+
+    },
+    body: fd
+  });
+
+  const data = await res.json().catch(() => null);
+  if (!res.ok) {
+    throw new Error(data?.error || data?.message || `HTTP ${res.status}`);
+  }
+  return data;
+}
+
+function whereEq(field, value) {
+  const f = encodeURIComponent(String(field ?? ""));
+  const v = encodeURIComponent(String(value ?? ""));
+  return `(${f},eq,${v})`;
+}
+
 function getTelegramUserId() {
   if (window.Telegram && Telegram.WebApp && Telegram.WebApp.initDataUnsafe) {
     const user = Telegram.WebApp.initDataUnsafe.user;
@@ -15,12 +59,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const id = getTelegramUserId();
   const startParam = Telegram.WebApp.initDataUnsafe?.start_param;
 
-  window.tgUserId = id;
-  window.tgUserStartParam = startParam;
+  window.tgUserId = 'Id';
+  window.tgUserStartParam = 'startParam';
 
   configureFirstByStartParam();
 });
-
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -32,7 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
       otherInput.style.display = 'block';
     } else {
       otherInput.style.display = 'none';
-      otherInput.value = ''; // Clear the input when hiding
+      otherInput.value = '';
     }
   });
 });
@@ -46,25 +89,24 @@ document.addEventListener('DOMContentLoaded', () => {
       otherInput.style.display = 'block';
     } else {
       otherInput.style.display = 'none';
-      otherInput.value = ''; // Clear the input when hiding
+      otherInput.value = '';
     }
   });
 });
 
-
 document.addEventListener('DOMContentLoaded', () => {
-    const select = document.getElementById('foreign_phone_yes');
-    const otherInput = document.getElementById('foreign_phone_type');
-  
-    select.addEventListener('change', () => {
-      if (select.checked) {
-        otherInput.style.display = 'block';
-      } else {
-        otherInput.style.display = 'none';
-        otherInput.value = ''; // Clear the input when hiding
-      }
-    });
+  const select = document.getElementById('foreign_phone_yes');
+  const otherInput = document.getElementById('foreign_phone_type');
+
+  select.addEventListener('change', () => {
+    if (select.checked) {
+      otherInput.style.display = 'block';
+    } else {
+      otherInput.style.display = 'none';
+      otherInput.value = '';
+    }
   });
+});
 
 document.addEventListener("DOMContentLoaded", () => {
   const toggle = document.getElementById("policy_toggle");
@@ -76,9 +118,10 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-const questionNames = ['surname', 'name', 'email', 'phone', 'city', 'city-other', 
-  'citizen', 'citizen-other', 'vuz', 'specialty', 'study', 'finished', 
+const questionNames = ['surname', 'name', 'email', 'phone', 'city', 'city-other',
+  'citizen', 'citizen-other', 'vuz', 'specialty', 'study', 'finished',
   'hours', 'first', 'second'];
+
 function saveForm() {
   const formData = new FormData(form);
   const data = {};
@@ -96,18 +139,16 @@ function restoreForm() {
   });
 }
 
-// Function to show text blocks based on dropdown selection
+
 function updateTextBlocks(dropdownId, mappings) {
   const dropdown = document.getElementById(dropdownId);
   const selectedValue = dropdown.value;
-  
-  // Hide all mapped text blocks
+
   mappings.forEach(([_, textBlockId]) => {
     const block = document.getElementById(textBlockId);
     if (block) block.style.display = 'none';
   });
 
-  // Show the matching text block if it exists
   const textBlockId = mappings.find(([optionValue]) => optionValue === selectedValue)?.[1];
   if (textBlockId) {
     const block = document.getElementById(textBlockId);
@@ -145,12 +186,12 @@ function configureFirstByStartParam() {
 
   const startParam = (window.tgUserStartParam || '').toLowerCase();
 
-const mapping = [
+  const mapping = [
     { keyword: 'projects', value: ['Projects', 'Survey', 'Accounts'] },
     { keyword: 'survey', value: ['Survey'] },
-    { keyword: 'smm',  value: ['SMM', 'SMM в IT']},
-    { keyword: 'itsmm',  value: ['SMM в IT']},
-    { keyword: 'account',  value: ['Accounts']}
+    { keyword: 'smm', value: ['SMM', 'SMM в IT'] },
+    { keyword: 'itsmm', value: ['SMM в IT'] },
+    { keyword: 'account', value: ['Accounts'] }
   ];
 
   const matched = mapping.find(m => startParam.includes(m.keyword));
@@ -160,9 +201,8 @@ const mapping = [
     return;
   }
 
-  const allowedValues = matched.value; // всегда массив
+  const allowedValues = matched.value;
 
-  // показать только разрешённые options
   Array.from(select.options).forEach(opt => {
     if (opt.value === '' || allowedValues.includes(opt.value)) {
       opt.hidden = false;
@@ -171,31 +211,53 @@ const mapping = [
     }
   });
 
-  // выбрать первый разрешённый
   select.value = allowedValues[0];
-
   select.style.display = 'block';
 
   updateTextBlocks('first_default', questionMappings);
 }
 
-
-
-// text blocks event listeners
+// listeners
 document.getElementById('first_default').addEventListener('change', () => {
   updateTextBlocks('first_default', questionMappings);
 });
-
 document.getElementById('second_default').addEventListener('change', () => {
   updateTextBlocks('second_default', questionMappings2);
 });
+
+
+function validateFile(file) {
+  if (file.size > 15 * 1024 * 1024) {
+    return "Файл слишком большой (макс. 15MB)";
+  }
+
+  const validTypes = [
+    "application/pdf",
+    "application/msword",
+    "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    "application/vnd.ms-excel",
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    "image/png",
+    "image/jpeg",
+    "image/jpg",
+    "image/gif",
+    "image/webp"
+  ];
+
+  if (!validTypes.includes(file.type)) {
+    return "Неподдерживаемый формат файла";
+  }
+
+  return null;
+}
 
 
 form.addEventListener('submit', async function (e) {
   const formData = new FormData(form);
   const errorEl = document.getElementById('reg-error');
   const fileInput = document.getElementById("fileInput");
-  const file = fileInput.files[0];
+  const file = fileInput?.files?.[0];
+
   const data = {
     surname: formData.get('surname'),
     name: formData.get('name'),
@@ -214,106 +276,81 @@ form.addEventListener('submit', async function (e) {
     second: formData.get('second'),
     previous: formData.get('previous')
   };
+
   e.preventDefault();
+
+  errorEl.textContent = "";
 
   const submitBtn = this.querySelector('button[type="submit"]');
   submitBtn.disabled = true;
-  submitBtn.textContent = 'ОТПРАВЛЯЕТСЯ...'
+  submitBtn.textContent = 'ОТПРАВЛЯЕТСЯ...';
   submitBtn.style.backgroundColor = '#ccc';
   submitBtn.style.color = '#666';
   setTimeout(() => {
     submitBtn.disabled = false;
-    submitBtn.textContent = 'ОТПРАВИТЬ'
+    submitBtn.textContent = 'ОТПРАВИТЬ';
     submitBtn.style.backgroundColor = '';
     submitBtn.style.color = '';
   }, 9000);
-  
-  let repeated = 'нет';
-  try {
-    const res = await fetch(`https://ndb.fut.ru/api/v2/tables/m6tyxd3346dlhco/records/count?where=(E-mail,eq,${formData.get('email')})`, {
-      method: 'GET',
-      headers: {
-        'accept': 'application/json',
-        'xc-token': 'crDte8gB-CSZzNujzSsy9obQRqZYkY3SNp8wre88'
-      }
-    });
-
-    const data_email = await res.json();
-    
-    if (data_email.count > 0) {
-      repeated = 'да';
-      errorEl.textContent = 'Ты уже зарегистрирован. Свяжись с нами через бота, если это не так или если ты хочешь изменить данные';
-      return;
-    }
-  }
-  catch (err) {
-    console.error(err);
-    errorEl.textContent = 'Ошибка сервера. Повтори попытку позже';
-    }
 
   try {
-
     const phone_check = formData.get('phone');
     const foreign_phone = formData.get('foreign_phone_type');
+
     if (foreign_phone) {
-      data.phone = foreign_phone; // Replace data.phone with foreign_phone value
+      data.phone = foreign_phone;
     } else if (!/^[7]\d{10}$/.test(phone_check)) {
       errorEl.textContent = 'Телефон должен состоять из 11 цифр, формат: 7XXXXXXXXXX';
       return;
     }
-    // data.phone is set to foreign_phone if it exists, or validated phone_check if not
+
     if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(data.email)) {
-    errorEl.textContent = 'Введи корректный e-mail (user@domain.com)';
+      errorEl.textContent = 'Введи корректный e-mail (user@domain.com)';
+      return;
+    }
+  } catch (err) {
+    console.error(err);
+    errorEl.textContent = 'Ошибка валидации. Проверь данные';
     return;
-    }
-    const res = await fetch(`https://ndb.fut.ru/api/v2/tables/m6tyxd3346dlhco/records/count?where=(Номер телефона,eq,${data.phone})`, {
-      method: 'GET',
-      headers: {
-        'accept': 'application/json',
-        'xc-token': 'crDte8gB-CSZzNujzSsy9obQRqZYkY3SNp8wre88'
-      }
-    });
+  }
 
-    const data_phone = await res.json();
-  
-    if (data_phone.count > 0) {
-      repeated = 'да';
+  if (data.city === 'Другой') { data.city = data.city_other; }
+  if (data.citizen === 'Другое') { data.citizen = data.citizen_other; }
+
+  try {
+    const emailCount = await nocodbRequest(
+      "GET",
+      `/api/v2/tables/m6tyxd3346dlhco/records/count?where=${whereEq('E-mail', data.email)}`
+    );
+    if (emailCount.count > 0) {
       errorEl.textContent = 'Ты уже зарегистрирован. Свяжись с нами через бота, если это не так или если ты хочешь изменить данные';
       return;
     }
-  }
-  catch (err) {
-    console.error(err);
-    errorEl.textContent = 'Ошибка сервера. Повтори попытку позже';
-    }
 
-  try {
-    const res = await fetch(`https://ndb.fut.ru/api/v2/tables/m6tyxd3346dlhco/records/count?where=(tg-id,eq,${window.tgUserId})`, {
-      method: 'GET',
-      headers: {
-        'accept': 'application/json',
-        'xc-token': 'crDte8gB-CSZzNujzSsy9obQRqZYkY3SNp8wre88'
-      }
-    });
-
-    const data_tgid = await res.json();
-    
-    if (data_tgid.count > 0) {
-      repeated = 'да';
+    const phoneCount = await nocodbRequest(
+      "GET",
+      `/api/v2/tables/m6tyxd3346dlhco/records/count?where=${whereEq('Номер телефона', data.phone)}`
+    );
+    if (phoneCount.count > 0) {
       errorEl.textContent = 'Ты уже зарегистрирован. Свяжись с нами через бота, если это не так или если ты хочешь изменить данные';
       return;
     }
-  }
-  catch (err) {
+
+    const tgCount = await nocodbRequest(
+      "GET",
+      `/api/v2/tables/m6tyxd3346dlhco/records/count?where=${whereEq('tg-id', window.tgUserId)}`
+    );
+    if (tgCount.count > 0) {
+      errorEl.textContent = 'Ты уже зарегистрирован. Свяжись с нами через бота, если это не так или если ты хочешь изменить данные';
+      return;
+    }
+  } catch (err) {
     console.error(err);
     errorEl.textContent = 'Ошибка сервера. Повтори попытку позже';
-    }
-  
-  if (data.city === 'Другой') {data.city = data.city_other};
-  if (data.citizen === 'Другое') {data.citizen = data.citizen_other};
-  
-  try {
-    let approved_first = 'ок';
+    return;
+  }
+
+  let approved_first = 'ок';
   if (
     data.hours === 'Менее 20 часов' ||
     data.study === "Среднее общее (школа)" ||
@@ -430,7 +467,7 @@ form.addEventListener('submit', async function (e) {
     approved_first = 'отказ';
   }
 
-    let approved_second = 'ок';
+  let approved_second = 'ок';
   if (
     data.hours === 'Менее 20 часов' ||
     data.study === "Среднее общее (школа)" ||
@@ -547,95 +584,59 @@ form.addEventListener('submit', async function (e) {
     approved_second = 'отказ';
   }
 
-      function validateFile(file) {
-      if (file.size > 15 * 1024 * 1024) {
-          return "Файл слишком большой (макс. 15MB)";
-      }
 
-      const validTypes = [
-          "application/pdf", 
-          "application/msword", 
-          "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-          "application/vnd.ms-excel",
-          "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-          "image/png",
-          "image/jpeg",
-          "image/jpg",
-          "image/gif",
-          "image/webp"
-      ];
-      
-      if (!validTypes.includes(file.type)) {
-          return "Неподдерживаемый формат файла";
-      }
-      
-      return null;
-    }
-    let attachmentData = null;
-    try { 
-      if (file) {
+  let attachmentData = null;
+
+  try {
+    if (file) {
       const validationError = validateFile(file);
       if (validationError) {
-          errorEl.textContent =  validationError;
-          return;
+        errorEl.textContent = validationError;
+        return;
       }
-      const uploadFormData = new FormData(form);
-      uploadFormData.append('file', file);
-      uploadFormData.append('path', 'solutions');
 
-        const uploadResponse = await fetch('https://ndb.fut.ru/api/v2/storage/upload', {
-          method: 'POST',
-          headers: {
-            'xc-token': 'crDte8gB-CSZzNujzSsy9obQRqZYkY3SNp8wre88'
-          },
-          body: uploadFormData
-        });
+      let uploadData = await nocodbUpload(file, "solutions");
+      if (!Array.isArray(uploadData)) uploadData = [uploadData];
 
-        let uploadData = await uploadResponse.json();
-        if (!Array.isArray(uploadData)) {
-            uploadData = [uploadData];
+      if (!uploadData.length || !uploadData[0]?.signedUrl) {
+        throw new Error("Не удалось получить информацию о файле");
+      }
+
+      const firstItem = uploadData[0];
+      const fileName = firstItem.title || file.name;
+      const fileType = firstItem.mimetype || file.type;
+      const fileSize = firstItem.size || file.size;
+
+      const getFileIcon = (mimeType) => {
+        if (!mimeType) return "mdi-file-outline";
+        if (mimeType.includes("pdf")) return "mdi-file-pdf-outline";
+        if (mimeType.includes("word")) return "mdi-file-word-outline";
+        if (mimeType.includes("excel") || mimeType.includes("spreadsheet")) return "mdi-file-excel-outline";
+        if (mimeType.includes("png") || mimeType.includes("jpeg") || mimeType.includes("jpg") || mimeType.includes("gif") || mimeType.includes("webp")) return "mdi-file-image-outline";
+        return "mdi-file-outline";
+      };
+
+      attachmentData = [
+        {
+          mimetype: fileType,
+          size: fileSize,
+          title: fileName,
+          url: firstItem.url,
+          icon: getFileIcon(fileType)
         }
-        console.log(uploadData)
-        if (!uploadData.length || !uploadData[0]?.signedUrl) {
-            throw new Error("Не удалось получить информацию о файле");
-        }
-        
-        const firstItem = uploadData[0];
-        const fileName = firstItem.title || file.name;
-        const fileType = firstItem.mimetype;
-        const fileSize = firstItem.size;
-        
-        const getFileIcon = (mimeType) => {
-            if (mimeType.includes("pdf")) return "mdi-file-pdf-outline";
-            if (mimeType.includes("word")) return "mdi-file-word-outline";
-            if (mimeType.includes("excel") || mimeType.includes("spreadsheet")) return "mdi-file-excel-outline";
-            if (mimeType.includes("png")) return "mdi-file-image-outline";
-            return "mdi-file-outline";
-        };
-        
-        attachmentData = [
-            {
-              mimetype: fileType,
-              size: fileSize,
-              title: fileName,
-              url: firstItem.url,
-              icon: getFileIcon(fileType)
-            }
-        ];
-    }      
-    } catch (err) {
-      errorEl.textContent = 'Не удалось загрузить файл: ' + err.message;
-      return;
+      ];
     }
-    
-    const res = await fetch('https://ndb.fut.ru/api/v2/tables/m6tyxd3346dlhco/records', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'accept': 'application/json',
-        'xc-token': 'crDte8gB-CSZzNujzSsy9obQRqZYkY3SNp8wre88'
-      },
-      body: JSON.stringify({
+  } catch (err) {
+    console.error(err);
+    errorEl.textContent = 'Не удалось загрузить файл: ' + (err.message || err);
+    return;
+  }
+
+  try {
+    await nocodbRequest(
+      "POST",
+      `/api/v2/tables/m6tyxd3346dlhco/records`,
+      {
         "E-mail": data.email,
         "Фамилия": data.surname,
         "Имя": data.name,
@@ -655,24 +656,16 @@ form.addEventListener('submit', async function (e) {
         "start-param": window.tgUserStartParam,
         "Прошлый отбор": data.previous,
         "Резюме": attachmentData
-      })
-    }
-    )
-    window.location.href = 'bye.html'
-  }
-  catch (err) {
+      }
+    );
+
+    window.location.href = 'bye.html';
+  } catch (err) {
     console.error(err);
     errorEl.textContent = 'Ошибка сервера. Повтори попытку позже';
-    }
+    return;
+  }
 });
 
 form.addEventListener('input', saveForm);
 restoreForm();
-
-
-
-
-
-
-
-
