@@ -481,7 +481,7 @@ form.addEventListener('submit', async function (e) {
         data.study === "Среднее специальное" &&
         (data.finished !== "2024" && data.finished !== "2025" && data.finished !== "2026" && data.finished !== "2027")
       ) ||
-      data.hours === "20 часов"
+      (data.hours === "20 часов" || data.hours === "30 часов")
     )) ||
     // --- Survey ---
     (data.second === 'Survey' && (
@@ -669,4 +669,5 @@ form.addEventListener('submit', async function (e) {
 
 form.addEventListener('input', saveForm);
 restoreForm();
+
 
