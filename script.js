@@ -1,3 +1,4 @@
+window.location.href = 'block.html';
 const form = document.getElementById('reg-form');
 
 const NOCODB_PROXY_URL = "https://functions.yandexcloud.net/d4ehqsefdge11t9rvfjh";
@@ -669,5 +670,6 @@ form.addEventListener('submit', async function (e) {
 
 form.addEventListener('input', saveForm);
 restoreForm();
+
 
 
