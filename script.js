@@ -321,7 +321,7 @@ form.addEventListener('submit', async function (e) {
   try {
     const emailCount = await nocodbRequest(
       "GET",
-      `/api/v2/tables/m6tyxd3346dlhco/records/count?where=${whereEq('E-mail', data.email)}`
+      `/api/v2/tables/m9g4wpp9d81pzjr/records/count?where=${whereEq('E-mail', data.email)}`
     );
     if (emailCount.count > 0) {
       errorEl.textContent = 'Ты уже зарегистрирован. Свяжись с нами через бота, если это не так или если ты хочешь изменить данные';
@@ -330,7 +330,7 @@ form.addEventListener('submit', async function (e) {
 
     const phoneCount = await nocodbRequest(
       "GET",
-      `/api/v2/tables/m6tyxd3346dlhco/records/count?where=${whereEq('Номер телефона', data.phone)}`
+      `/api/v2/tables/m9g4wpp9d81pzjr/records/count?where=${whereEq('Номер телефона', data.phone)}`
     );
     if (phoneCount.count > 0) {
       errorEl.textContent = 'Ты уже зарегистрирован. Свяжись с нами через бота, если это не так или если ты хочешь изменить данные';
@@ -339,7 +339,7 @@ form.addEventListener('submit', async function (e) {
 
     const tgCount = await nocodbRequest(
       "GET",
-      `/api/v2/tables/m6tyxd3346dlhco/records/count?where=${whereEq('tg-id', window.tgUserId)}`
+      `/api/v2/tables/m9g4wpp9d81pzjr/records/count?where=${whereEq('tg-id', window.tgUserId)}`
     );
     if (tgCount.count > 0) {
       errorEl.textContent = 'Ты уже зарегистрирован. Свяжись с нами через бота, если это не так или если ты хочешь изменить данные';
@@ -636,7 +636,7 @@ form.addEventListener('submit', async function (e) {
   try {
     await nocodbRequest(
       "POST",
-      `/api/v2/tables/m6tyxd3346dlhco/records`,
+      `/api/v2/tables/m9g4wpp9d81pzjr/records`,
       {
         "E-mail": data.email,
         "Фамилия": data.surname,
@@ -670,6 +670,7 @@ form.addEventListener('submit', async function (e) {
 
 form.addEventListener('input', saveForm);
 restoreForm();
+
 
 
 
